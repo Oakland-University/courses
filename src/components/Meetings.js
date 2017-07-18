@@ -2,6 +2,8 @@ import React, { Component } from "react"
 import PropTypes from "prop-types"
 import { withStyles, createStyleSheet } from "material-ui/styles"
 import Typography from "material-ui/Typography"
+import { getMapUrl } from "../utils/mapLinks"
+import ExpandableMeetings from "./ExpandableMeetings"
 
 const styleSheet = createStyleSheet("Meetings", theme => ({
   meet: {
