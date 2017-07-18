@@ -75,26 +75,26 @@ class ExpandableMeetings extends Component {
             className={classes.meet}
             tabIndex="0"
             aria-label={
-              this.props.meetings[i].startDay +
+              this.props.meetings[i].startDayOfMonth +
               "-0" +
               this.props.meetings[i].startMonth +
               "-" +
               this.props.meetings[i].startYear +
               " to " +
-              this.props.meetings[i].endDay +
+              this.props.meetings[i].endDayOfMonth +
               "-0" +
               this.props.meetings[i].endMonth +
               "-" +
               this.props.meetings[i].endYear
             }
           >
-            {this.props.meetings[i].startDay +
+            {this.props.meetings[i].startDayOfMonth +
               "/" +
               this.props.meetings[i].startMonth +
               "/" +
               this.props.meetings[i].startYear +
               " - " +
-              this.props.meetings[i].endDay +
+              this.props.meetings[i].endDayOfMonth +
               "/" +
               this.props.meetings[i].endMonth +
               "/" +

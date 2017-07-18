@@ -66,6 +66,6 @@ ReactDOM.render(
       <App theme={theme} />
     </MuiThemeProvider>
   </I18nextProvider>,
-  document.getElementById("root")
+  document.getElementById("courses-root")
 )
 registerServiceWorker()

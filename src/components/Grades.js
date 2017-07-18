@@ -141,8 +141,26 @@ const GradeRow = courses => {
     let tableArray = []
     for (let i = 0; i < courses.length; i++) {
       let course = courses[i].departmentCode + " - " + courses[i].subjectNumber
-      let credits = courses[i].grade.credit
-      let grade = courses[i].grade.grade
+
+      let credits
+      let grade
+
+      if (Object.is(courses[i].grade), null) {
+        credits = "N/A"
+        grade = "N/A"
+      }else{
+        try {
+          credits = courses[i].grade.credit
+        }catch (err) {
+          credits = "N/A"
+        }
+
+        try {
+          grade = courses[i].grade.grade
+        }catch(err){
+          grade = "N/A"
+        }
+      }
 
       tableArray.push(
         <TableRow key={i + Math.random()}>

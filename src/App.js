@@ -5,10 +5,10 @@ import AdvisingTabs from "./components/AdvisingTabs"
 import TermsMenu from "./components/TermsMenu"
 import { getTerms, getCourses } from "./api/api"
 
-const termsURL = "http://localhost:8082/api/terms"
-const coursesURL = "http://localhost:8082/api/courses"
-const calendarEventsURL = "http://localhost:8082/api/calendar"
-const gpaAndCreditsURL = "http://localhost:8082/api/credits"
+/* global termsURL */
+/* global coursesURL */
+/* global calendarEventsURL */
+/* global gpaAndCreditsURL */
 
 
 class App extends Component {
@@ -17,14 +17,15 @@ class App extends Component {
     currentTermDescription: "",
     currentTermCode: "",
     courses: null,
-    width: document.getElementById("root").clientWidth,
+    width: document.getElementById("courses-root").clientWidth,
     mobile: false,
-    advising: false
+    advising: false,
+    currentTerm: null
   }
 
   updateWidth = () => {
     this.setState({
-      width: document.getElementById("root").clientWidth
+      width: document.getElementById("courses-root").clientWidth
     })
     if (this.state.width < 796) {
       this.setState({ mobile: true })
@@ -35,31 +36,32 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
-    if (document.getElementById("root").clientWidth < 796) {
+    if (document.getElementById("courses-root").clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
     getTerms(termsURL)
       .then(terms => {
         for (let i = 0, total = terms.length; i < total; i++) {
-          if (Object.is(terms[i].current, "true")) {
+          if (Object.is(terms[i].current, true)) {
             this.setState({
               currentTermDescription: terms[i].description,
-              currentTermCode: terms[i].code
+              currentTermCode: terms[i].code,
+              currentTerm: terms[i]
             })
           }
         }
         this.setState({ terms })
       })
       .then(() => {
-        getCourses(this.state.currentTermCode, coursesURL).then(courses => {
+        getCourses(this.state.currentTerm, coursesURL).then(courses => {
           this.setState({ courses })
         })
       })
   }
 
-  updateTerm = currentTermCode => {
-    getCourses(currentTermCode, coursesURL).then(courses => {
+  updateTerm = currentTerm => {
+    getCourses(currentTerm, coursesURL).then(courses => {
       this.setState({ courses })
     })
   }
@@ -80,6 +82,7 @@ class App extends Component {
             currentTermCode={this.state.currentTermCode}
             courses={this.state.courses}
             mobile={this.state.mobile}
+            gradesURL={gpaAndCreditsURL}
           />
         </div>
       )

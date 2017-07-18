@@ -30,9 +30,9 @@ class TermsMenu extends Component {
     this.setState({ open: true, anchorEl: event.currentTarget })
   }
 
-  handleSelect = (selected, code) => {
+  handleSelect = (selected, term) => {
     this.setState({ selected, open: false })
-    this.props.updateTerm(code)
+    this.props.updateTerm(term)
   }
 
   getTerms = () => {
@@ -44,7 +44,7 @@ class TermsMenu extends Component {
           onClick={() =>
             this.handleSelect(
               this.props.terms[i].description,
-              this.props.terms[i].code
+              this.props.terms[i]
             )}
         >
           {this.props.terms[i].description}
