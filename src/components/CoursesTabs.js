@@ -76,6 +76,7 @@ class CoursesTabs extends Component {
               eventsURL={this.props.calendarURL}
               termBounds={this.props.termBounds}
               rootID={this.props.rootElement}
+              translateURL="/translate/locales/{{lng}}/{{ns}}.json"
             />
           </TabContainer>}
         {Object.is(this.state.index, 2) &&
