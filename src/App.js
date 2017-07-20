@@ -54,14 +54,14 @@ class App extends Component {
       })
       .then(() => {
         getCourses(this.state.currentTerm, coursesURL).then(courses => {
-          this.setState({ courses })
+          this.setState({ courses: courses.courses, advising: courses.advising })
         })
       })
   }
 
   updateTerm = currentTerm => {
     getCourses(currentTerm, coursesURL).then(courses => {
-      this.setState({ courses })
+      this.setState({ courses: courses.courses, advising: courses.advising })
     })
   }
 
