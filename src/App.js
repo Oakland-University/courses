@@ -46,7 +46,10 @@ class App extends Component {
             this.setState({
               currentTermDescription: terms[i].description,
               currentTermCode: terms[i].code,
-              currentTermBounds: [parseInt(terms[i].start, 10), parseInt(terms[i].end, 10)]
+              currentTermBounds: [
+                parseInt(terms[i].start, 10),
+                parseInt(terms[i].end, 10)
+              ]
             })
           }
         }
@@ -54,7 +57,10 @@ class App extends Component {
       })
       .then(() => {
         getCourses(this.state.currentTerm, coursesURL).then(courses => {
-          this.setState({ courses: courses.courses, advising: courses.advising })
+          this.setState({
+            courses: courses.courses,
+            advising: courses.advising
+          })
         })
       })
   }
@@ -68,7 +74,10 @@ class App extends Component {
   getView = () => {
     if (Object.is(this.state.terms, null)) {
       return <div />
-    } else if (!Object.is(this.state.courses, null) && !this.state.advising) {
+    } else if (
+      !Object.is(this.state.courses, null) &&
+      !Object.is(this.state.advising, "true")
+    ) {
       return (
         <div>
           <TermsDialog
@@ -90,7 +99,7 @@ class App extends Component {
         </div>
       )
     } else {
-      if (!this.state.advising) {
+      if (Object.is(!this.state.advising, "true")) {
         return (
           <div>
             <TermsDialog
