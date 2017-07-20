@@ -8,6 +8,7 @@ import Paper from "material-ui/Paper"
 import Tabs, { Tab } from "material-ui/Tabs"
 import { translate } from "react-i18next"
 import Advising from "./Advising"
+import Calendar from "reactjs-calendar"
 
 const TabContainer = props =>
   <div style={{ padding: 20 }}>
@@ -71,9 +72,12 @@ class AdvisingTabs extends Component {
           </TabContainer>}
         {Object.is(this.state.index, 1) &&
           <TabContainer>
-            <div tabIndex="0">
-              <p tabIndex="0">Hello Aaron</p>
-            </div>
+            <Calendar
+              eventsURL={this.props.calendarURL}
+              termBounds={this.props.termBounds}
+              rootID={this.props.rootElement}
+              translateURL="/translate/locales/{{lng}}/{{ns}}.json"
+            />
           </TabContainer>}
       </Paper>
     )
