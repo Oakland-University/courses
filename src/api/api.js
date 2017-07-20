@@ -43,8 +43,8 @@ export const getCourses = async (term, url) => {
 export const getCredits = async url => {
   try {
     const response = await fetch(url, { credentials: "include" })
-    const grades = await response.json()
-    return grades.grades
+    const credits = await response.json()
+    return credits.gpa
   } catch (err) {
     return err
   }

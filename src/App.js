@@ -1,8 +1,7 @@
 import React, { Component } from "react"
-import "./App.css"
 import CoursesTabs from "./components/CoursesTabs"
 import AdvisingTabs from "./components/AdvisingTabs"
-import TermsMenu from "./components/TermsMenu"
+import TermsDialog from "./components/TermsDialog"
 import { getTerms, getCourses } from "./api/api"
 
 /* global termsURL */
@@ -10,14 +9,14 @@ import { getTerms, getCourses } from "./api/api"
 /* global calendarEventsURL */
 /* global gpaAndCreditsURL */
 
-
 class App extends Component {
   state = {
     terms: null,
     currentTermDescription: "",
     currentTermCode: "",
+    currentTermBounds: "",
     courses: null,
-    width: document.getElementById("courses-root").clientWidth,
+    width: document.getElementById(this.props.rootElement).clientWidth,
     mobile: false,
     advising: false,
     currentTerm: null
@@ -25,7 +24,7 @@ class App extends Component {
 
   updateWidth = () => {
     this.setState({
-      width: document.getElementById("courses-root").clientWidth
+      width: document.getElementById(this.props.rootElement).clientWidth
     })
     if (this.state.width < 796) {
       this.setState({ mobile: true })
@@ -36,7 +35,7 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener("resize", this.updateWidth)
-    if (document.getElementById("courses-root").clientWidth < 796) {
+    if (document.getElementById(this.props.rootElement).clientWidth < 796) {
       this.setState({ mobile: true })
     }
 
@@ -47,7 +46,7 @@ class App extends Component {
             this.setState({
               currentTermDescription: terms[i].description,
               currentTermCode: terms[i].code,
-              currentTerm: terms[i]
+              currentTermBounds: [parseInt(terms[i].start, 10), parseInt(terms[i].end, 10)]
             })
           }
         }
@@ -72,9 +71,10 @@ class App extends Component {
     } else if (!Object.is(this.state.courses, null) && !this.state.advising) {
       return (
         <div>
-          <TermsMenu
+          <TermsDialog
             terms={this.state.terms}
             currentTermDescription={this.state.currentTermDescription}
+            currentTermCode={this.state.currentTermCode}
             updateTerm={this.updateTerm}
             mobile={this.state.mobile}
           />
@@ -82,6 +82,9 @@ class App extends Component {
             currentTermCode={this.state.currentTermCode}
             courses={this.state.courses}
             mobile={this.state.mobile}
+            rootElement={this.props.rootElement}
+            calendarURL={calendarEventsURL}
+            termBounds={this.state.currentTermBounds}
             gradesURL={gpaAndCreditsURL}
           />
         </div>
@@ -90,9 +93,10 @@ class App extends Component {
       if (!this.state.advising) {
         return (
           <div>
-            <TermsMenu
+            <TermsDialog
               terms={this.state.terms}
               currentTermDescription={this.state.currentTermDescription}
+              currentTermCode={this.state.currentTermCode}
               updateTerm={this.updateTerm}
               mobile={this.state.mobile}
             />
@@ -101,15 +105,19 @@ class App extends Component {
               courses={this.state.courses}
               mobile={this.state.mobile}
               gradesURL={gpaAndCreditsURL}
+              calendarURL={calendarEventsURL}
+              rootElement={this.props.rootElement}
+              termBounds={this.state.currentTermBounds}
             />
           </div>
         )
       } else {
         return (
           <div>
-            <TermsMenu
+            <TermsDialog
               terms={this.state.terms}
               currentTermDescription={this.state.currentTermDescription}
+              currentTermCode={this.state.currentTermCode}
               updateTerm={this.updateTerm}
               mobile={this.state.mobile}
             />
@@ -118,6 +126,9 @@ class App extends Component {
               courses={this.state.courses}
               mobile={this.state.mobile}
               gradesURL={gpaAndCreditsURL}
+              calendarURL={calendarEventsURL}
+              rootElement={this.props.rootElement}
+              termBounds={this.state.currentTermBounds}
             />
           </div>
         )

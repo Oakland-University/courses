@@ -5,9 +5,7 @@ import registerServiceWorker from "./registerServiceWorker"
 import { MuiThemeProvider, createMuiTheme } from "material-ui/styles"
 import createPalette from "material-ui/styles/palette"
 import createTypography from "material-ui/styles/typography"
-import "typeface-oxygen"
 import "typeface-arimo"
-import "raleway-webfont"
 import { I18nextProvider } from "react-i18next"
 import i18n from "./utils/i18n"
 
@@ -60,12 +58,14 @@ const theme = createMuiTheme({
   })
 })
 
+const rootElement = "root"
+
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>
     <MuiThemeProvider theme={theme}>
-      <App theme={theme} />
+      <App theme={theme} rootElement={rootElement}/>
     </MuiThemeProvider>
   </I18nextProvider>,
-  document.getElementById("courses-root")
+  document.getElementById(rootElement)
 )
 registerServiceWorker()
