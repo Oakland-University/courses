@@ -58,7 +58,7 @@ const theme = createMuiTheme({
   })
 })
 
-const rootElement = "root"
+const rootElement = "courses-root"
 
 ReactDOM.render(
   <I18nextProvider i18n={i18n}>

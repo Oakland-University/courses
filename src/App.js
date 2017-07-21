@@ -13,7 +13,7 @@ class App extends Component {
   state = {
     terms: null,
     currentTermDescription: "",
-    currentTermCode: "",
+    currentTerm: "",
     currentTermBounds: "",
     courses: null,
     width: document.getElementById(this.props.rootElement).clientWidth,
@@ -45,7 +45,7 @@ class App extends Component {
           if (Object.is(terms[i].current, true)) {
             this.setState({
               currentTermDescription: terms[i].description,
-              currentTermCode: terms[i].code,
+              currentTerm: terms[i],
               currentTermBounds: [
                 parseInt(terms[i].start, 10),
                 parseInt(terms[i].end, 10)
