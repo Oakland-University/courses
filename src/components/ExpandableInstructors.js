@@ -14,7 +14,6 @@ const styleSheet = createStyleSheet("ExpandableInstructors", theme => ({
     paddingLeft: 0
   },
   links: {
-    color: "#3344dd",
     display: "flex",
     flexDirection: "column",
     borderLeftStyle: "solid",
@@ -27,6 +26,7 @@ const styleSheet = createStyleSheet("ExpandableInstructors", theme => ({
   },
 
   link: {
+    color: "#3344dd",
     marginBottom: 10
   },
 
