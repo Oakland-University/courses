@@ -9,13 +9,13 @@ import { getTerms, getCourses } from "./api/api"
 /* global calendarEventsURL */
 /* global gpaAndCreditsURL */
 
-const calendarObj = {url: calendarEventsURL, credentialsNeeded: false}
+const calendarObj = { url: calendarEventsURL, credentialsNeeded: false }
 
 class App extends Component {
   state = {
     terms: null,
     currentTermDescription: "",
-    currentTerm: "",
+    currentTermCode: "",
     currentTermBounds: "",
     courses: null,
     width: document.getElementById(this.props.rootElement).clientWidth,
@@ -48,6 +48,7 @@ class App extends Component {
             this.setState({
               currentTermDescription: terms[i].description,
               currentTerm: terms[i],
+              currentTermCode: terms[i].code,
               currentTermBounds: [
                 parseInt(terms[i].start, 10),
                 parseInt(terms[i].end, 10)
