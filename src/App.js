@@ -9,7 +9,7 @@ import { getTerms, getCourses } from "./api/api"
 /* global calendarEventsURL */
 /* global gpaAndCreditsURL */
 
-const calendarObj = { url: calendarEventsURL, credentialsNeeded: false }
+const calendarObj = { url: calendarEventsURL, credentialsNeeded: true }
 
 class App extends Component {
   state = {
@@ -95,7 +95,7 @@ class App extends Component {
             courses={this.state.courses}
             mobile={this.state.mobile}
             rootElement={this.props.rootElement}
-            calendarURL={calendarEventsURL}
+            calendarURL={calendarObj}
             termBounds={this.state.currentTermBounds}
             gradesURL={gpaAndCreditsURL}
           />
@@ -117,7 +117,7 @@ class App extends Component {
               courses={this.state.courses}
               mobile={this.state.mobile}
               gradesURL={gpaAndCreditsURL}
-              calendarURL={calendarEventsURL}
+              calendarURL={calendarObj}
               rootElement={this.props.rootElement}
               termBounds={this.state.currentTermBounds}
             />

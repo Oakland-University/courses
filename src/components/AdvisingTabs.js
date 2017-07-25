@@ -76,7 +76,7 @@ class AdvisingTabs extends Component {
               eventsURL={this.props.calendarURL}
               termBounds={this.props.termBounds}
               rootID={this.props.rootElement}
-              translateURL="/translate/locales/{{lng}}/{{ns}}.json"
+              translateURL="/translations/locales/{{lng}}/{{ns}}.json"
             />
           </TabContainer>}
       </Paper>
