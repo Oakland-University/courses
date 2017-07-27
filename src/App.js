@@ -26,7 +26,6 @@ const styleSheet = createStyleSheet("CircularIndeterminate", theme => ({
     display: "flex",
     justifyContent: "center"
   }
-
 }))
 
 class App extends Component {
@@ -38,6 +37,7 @@ class App extends Component {
     width: document.getElementById(this.props.rootElement).clientWidth,
     mobile: false,
     advising: false,
+    books: null,
     error: false,
     loading: true
   }
@@ -82,6 +82,7 @@ class App extends Component {
         getCourses(this.state.currentTerm, coursesURL).then(courses => {
           if (!(courses instanceof Error)) {
             this.setState({
+              books: courses.bookXML,
               courses: courses.courses,
               advising: courses.advising
             })
@@ -98,7 +99,11 @@ class App extends Component {
       parseInt(currentTerm.end, 10)
     ]
     getCourses(currentTerm, coursesURL).then(courses => {
-      this.setState({ courses: courses.courses, currentTermBounds: termBounds })
+      this.setState({
+        courses: courses.courses,
+        currentTermBounds: termBounds,
+        books: courses.bookXML
+      })
     })
   }
 
@@ -139,6 +144,7 @@ class App extends Component {
             currentTermDescription={this.state.currentTerm.description}
             currentTermCode={this.state.currentTerm.code}
             updateTerm={this.updateTerm}
+            books={this.state.books}
           />
         </div>
       )
@@ -157,6 +163,7 @@ class App extends Component {
               currentTermDescription={this.state.currentTerm.description}
               currentTermCode={this.state.currentTerm.code}
               updateTerm={this.updateTerm}
+              books={this.state.books}
             />
           </div>
         )
@@ -180,7 +187,6 @@ class App extends Component {
       }
     }
   }
-
 
   render() {
     const classes = this.props.classes
