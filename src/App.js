@@ -138,7 +138,7 @@ class App extends Component {
         </div>
       )
     } else {
-      if (Object.is(!this.state.advising, "true")) {
+      if (!this.state.advising) {
         return (
           <div>
             <CoursesTabs
