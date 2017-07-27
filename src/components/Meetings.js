@@ -29,7 +29,7 @@ class Meetings extends Component {
             className={classes.meetLink}
             tabIndex="0"
             target="_blank"
-            href="https://oakland.edu"
+            href={getMapUrl(this.props.meetings[0].buildingRoom, false)}
             rel="noopener noreferrer"
           >
             {this.props.meetings[0].buildingRoom +
