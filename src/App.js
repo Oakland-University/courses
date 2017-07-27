@@ -14,6 +14,10 @@ import { CircularProgress } from "material-ui/Progress"
 const calendarObj = { url: calendarEventsURL, credentialsNeeded: true }
 
 const styleSheet = createStyleSheet("CircularIndeterminate", theme => ({
+  root: {
+    position: "relative"
+  },
+
   progress: {
     margin: `0 ${theme.spacing.unit * 2}px`
   },
@@ -22,6 +26,7 @@ const styleSheet = createStyleSheet("CircularIndeterminate", theme => ({
     display: "flex",
     justifyContent: "center"
   }
+
 }))
 
 class App extends Component {
@@ -93,7 +98,7 @@ class App extends Component {
       parseInt(currentTerm.end, 10)
     ]
     getCourses(currentTerm, coursesURL).then(courses => {
-      this.setState({ courses: courses.courses, advising: courses.advising, currentTermBounds: termBounds })
+      this.setState({ courses: courses.courses, currentTermBounds: termBounds })
     })
   }
 
@@ -176,9 +181,12 @@ class App extends Component {
     }
   }
 
+
   render() {
+    const classes = this.props.classes
+    const courses = this.state.courses
     return (
-      <div>
+      <div className={classes.root}>
         {this.getView()}
       </div>
     )

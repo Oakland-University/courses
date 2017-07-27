@@ -79,26 +79,26 @@ class ExpandableMeetings extends Component {
             className={classes.meet}
             tabIndex="0"
             aria-label={
-              this.props.meetings[i].startDayOfMonth +
+              this.props.meetings[i].startDay +
               "-0" +
               this.props.meetings[i].startMonth +
               "-" +
               this.props.meetings[i].startYear +
               " to " +
-              this.props.meetings[i].endDayOfMonth +
+              this.props.meetings[i].endDay +
               "-0" +
               this.props.meetings[i].endMonth +
               "-" +
               this.props.meetings[i].endYear
             }
           >
-            {this.props.meetings[i].startDayOfMonth +
+            {this.props.meetings[i].startDay +
               "/" +
               this.props.meetings[i].startMonth +
               "/" +
               this.props.meetings[i].startYear +
               " - " +
-              this.props.meetings[i].endDayOfMonth +
+              this.props.meetings[i].endDay +
               "/" +
               this.props.meetings[i].endMonth +
               "/" +
@@ -154,26 +154,26 @@ class ExpandableMeetings extends Component {
           className={classes.meet}
           tabIndex="0"
           aria-label={
-            meeting.startDayOfMonth +
+            meeting.startDay +
             "-0" +
             meeting.startMonth +
             "-" +
             meeting.startYear +
             " to " +
-            meeting.endDayOfMonth +
+            meeting.endDay +
             "-0" +
             meeting.endMonth +
             "-" +
             meeting.endYear
           }
         >
-          {meeting.startDayOfMonth +
+          {meeting.startDay +
             "/" +
             meeting.startMonth +
             "/" +
             meeting.startYear +
             " - " +
-            meeting.endDayOfMonth +
+            meeting.endDay +
             "/" +
             meeting.endMonth +
             "/" +

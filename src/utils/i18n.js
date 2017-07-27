@@ -3,7 +3,7 @@ import Fetch from "i18next-fetch-backend"
 import Cache from "i18next-localstorage-cache"
 import LanguageDetector from "i18next-browser-languagedetector"
 
-const translateURL = "/translations/locales/{{lng}}/{{ns}}.json"
+const translateURL = "/translations/api-v1/locales/courses/{{lng}}/{{ns}}.json"
 
 i18n.use(Fetch).use(Cache).use(LanguageDetector).init({
   fallbackLng: "en",
