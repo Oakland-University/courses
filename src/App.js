@@ -58,7 +58,7 @@ class App extends Component {
       .then(terms => {
         if (!(terms instanceof Error)) {
           for (let i = 0, total = terms.length; i < total; i++) {
-            if (Object.is(terms[i].current, "true")) {
+            if (Object.is(terms[i].current, true)) {
               this.setState({
                 currentTerm: terms[i],
                 currentTermBounds: [
