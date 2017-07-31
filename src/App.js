@@ -192,7 +192,6 @@ class App extends Component {
 
   render() {
     const classes = this.props.classes
-    const courses = this.state.courses
     return (
       <div className={classes.root}>
         {this.getView()}
