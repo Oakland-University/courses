@@ -24,7 +24,9 @@ const styleSheet = createStyleSheet("CircularIndeterminate", theme => ({
 
   loading: {
     display: "flex",
-    justifyContent: "center"
+    justifyContent: "center",
+    marginTop: "4em", // needed for displaying loading/error correctly in prod
+    marginBottom: "0.5em" // needed for displaying loading/error correctly in prod
   }
 }))
 
