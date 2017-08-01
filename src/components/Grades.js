@@ -145,7 +145,7 @@ const GradeRow = courses => {
       let credits
       let grade
 
-      if (Object.is(courses[i].grade), null) {
+      if (Object.is(courses[i].grade, null)) {
         credits = "N/A"
         grade = "N/A"
       }else{
