@@ -84,6 +84,7 @@ class ExpandableInstructors extends Component {
             {this.props.teachers[0].office}
           </a>
           <a
+            className={classes.link}
             target="_blank"
             href={"mailto:" + this.props.teachers[0].email}
             tabIndex="0"
@@ -102,7 +103,7 @@ class ExpandableInstructors extends Component {
     let elements = []
     for (let i = 1, total = this.props.teachers.length; i < total; i++) {
       elements.push(
-        <div key={this.props.teachers[i].crn}>
+        <div>
           <Typography
             type="headline"
             component="h3"
@@ -117,7 +118,7 @@ class ExpandableInstructors extends Component {
             <a
               className={classes.link}
               target="_blank"
-              href={getMapUrl(this.props.teachers[0].office, true)}
+              href={getMapUrl(this.props.teachers[i].office, true)}
               rel="noopener noreferrer"
               tabIndex="0"
             >
@@ -125,7 +126,7 @@ class ExpandableInstructors extends Component {
             </a>
             <a
               target="_blank"
-              href={"mailto:" + this.props.teachers[0].email}
+              href={"mailto:" + this.props.teachers[i].email}
               tabIndex="0"
               rel="noopener noreferrer"
             >
