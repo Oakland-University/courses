@@ -89,7 +89,6 @@ class ExpandableInstructors extends Component {
             href={"mailto:" + this.props.teachers[0].email}
             tabIndex="0"
             rel="noopener noreferrer"
-            className={classes.link}
           >
             {this.props.teachers[0].email}
           </a>
