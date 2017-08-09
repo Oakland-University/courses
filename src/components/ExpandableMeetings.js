@@ -24,7 +24,7 @@ const styleSheet = createStyleSheet("ExpandableMeetings", theme => ({
   flexGrow: { flex: "1 1 auto" },
 
   meet: {
-    color: theme.palette.text.primary
+    color: "#3344dd"
   },
 
   iconButtonDiv: {
@@ -33,7 +33,6 @@ const styleSheet = createStyleSheet("ExpandableMeetings", theme => ({
   },
 
   expandedDiv: {
-    color: "#3344dd",
     display: "flex",
     flexDirection: "column",
     borderLeftStyle: "solid",
@@ -86,28 +85,28 @@ class ExpandableMeetings extends Component {
             className={classes.meet}
             tabIndex="0"
             aria-label={
-              this.props.meetings[i].startDay +
-              "-0" +
               this.props.meetings[i].startMonth +
+              "-" +
+              this.props.meetings[i].startDay +
               "-" +
               this.props.meetings[i].startYear +
               " to " +
-              this.props.meetings[i].endDay +
-              "-0" +
               this.props.meetings[i].endMonth +
+              "-" +
+              this.props.meetings[i].endDay +
               "-" +
               this.props.meetings[i].endYear
             }
           >
-            {this.props.meetings[i].startDay +
+            {this.props.meetings[i].startMonth +
               "/" +
-              this.props.meetings[i].startMonth +
+              this.props.meetings[i].startDay +
               "/" +
               this.props.meetings[i].startYear +
               " - " +
-              this.props.meetings[i].endDay +
-              "/" +
               this.props.meetings[i].endMonth +
+              "/" +
+              this.props.meetings[i].endDay +
               "/" +
               this.props.meetings[i].endYear}
           </Typography>
@@ -133,7 +132,7 @@ class ExpandableMeetings extends Component {
           rel="noopener noreferrer"
           key={meeting.endDate + Math.random()}
         >
-          {meeting.buildingRoom + " [" + meeting.campus + "] "}
+          {meeting.buildingRoom + " [" + meeting.campus + "]"}
         </a>
         <Typography type="body2" className={classes.meet} tabIndex="0">
           {`${meeting.meetDays} `}
