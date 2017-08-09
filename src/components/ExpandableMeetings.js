@@ -71,9 +71,6 @@ class ExpandableMeetings extends Component {
           <Typography type="body2" className={classes.meet} tabIndex="0">
             {`${this.props.meetings[i].meetDays} `}
           </Typography>
-          <Typography type="body2" className={classes.meet} tabIndex="0">
-            {this.props.meetings[i].courseType}
-          </Typography>
           <Typography
             type="body2"
             className={classes.meet}
@@ -113,6 +110,9 @@ class ExpandableMeetings extends Component {
               this.props.meetings[i].endMonth +
               "/" +
               this.props.meetings[i].endYear}
+          </Typography>
+          <Typography type="body2" className={classes.meet} tabIndex="0">
+            {this.props.meetings[i].courseType}
           </Typography>
         </div>
       )
