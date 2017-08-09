@@ -6,7 +6,7 @@ import Collapse from "material-ui/transitions/Collapse"
 import IconButton from "material-ui/IconButton"
 import ExpandMoreIcon from "material-ui-icons/ExpandMore"
 import { CardContent } from "material-ui/Card"
-import {getMapUrl} from "../utils/mapLinks"
+import { getMapUrl } from "../utils/mapLinks"
 import classnames from "classnames"
 
 const styleSheet = createStyleSheet("ExpandableMeetings", theme => ({
@@ -133,10 +133,7 @@ class ExpandableMeetings extends Component {
           rel="noopener noreferrer"
           key={meeting.endDate + Math.random()}
         >
-          {meeting.buildingRoom +
-            " [" +
-            meeting.campus +
-            " ] "}
+          {meeting.buildingRoom + " [" + meeting.campus + "] "}
         </a>
         <Typography type="body2" className={classes.meet} tabIndex="0">
           {`${meeting.meetDays} `}
@@ -147,17 +144,7 @@ class ExpandableMeetings extends Component {
           tabIndex="0"
           key={meeting.endDate + Math.random()}
         >
-          {meeting.courseType}
-        </Typography>
-        <Typography
-          type="body2"
-          className={classes.meet}
-          tabIndex="0"
-          key={meeting.endDate + Math.random()}
-        >
-          {meeting.startTime +
-            " - " +
-            meeting.endTime}
+          {meeting.startTime + " - " + meeting.endTime}
         </Typography>
         <Typography
           type="body2"

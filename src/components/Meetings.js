@@ -78,6 +78,9 @@ class Meetings extends Component {
                 "/" +
                 this.props.meetings[0].endYear}
             </Typography>
+            <Typography type="body2" className={classes.meet} tabIndex="0">
+              {this.props.meetings[0].courseType}
+            </Typography>
           </div>
         )
       }
