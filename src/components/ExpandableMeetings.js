@@ -29,6 +29,7 @@ const styleSheet = createStyleSheet("ExpandableMeetings", theme => ({
   },
 
   expandedDiv: {
+    marginTop: "1em",
     display: "flex",
     flexDirection: "column",
     borderLeftStyle: "solid",
@@ -156,28 +157,28 @@ class ExpandableMeetings extends Component {
           className={classes.meet}
           tabIndex="0"
           aria-label={
-            meeting.startDay +
-            "-0" +
             meeting.startMonth +
+            "-" +
+            meeting.startDay +
             "-" +
             meeting.startYear +
             " to " +
-            meeting.endDay +
-            "-0" +
             meeting.endMonth +
+            "-0" +
+            meeting.endDay +
             "-" +
             meeting.endYear
           }
         >
-          {meeting.startDay +
+          {meeting.startMonth +
             "/" +
-            meeting.startMonth +
+            meeting.startDay +
             "/" +
             meeting.startYear +
             " - " +
-            meeting.endDay +
-            "/" +
             meeting.endMonth +
+            "/" +
+            meeting.endDay +
             "/" +
             meeting.endYear}
         </Typography>
