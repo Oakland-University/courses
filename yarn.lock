@@ -1019,8 +1019,8 @@ big.js@^3.1.3:
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-3.1.3.tgz#4cada2193652eb3ca9ec8e55c9015669c9806978"
 
 binary-extensions@^1.0.0:
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.9.0.tgz#66506c16ce6f4d6928a5b3cd6a33ca41e941e37b"
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/binary-extensions/-/binary-extensions-1.10.0.tgz#9aeb9a6c5e88638aad171e167f5900abe24835d0"
 
 bl@^1.0.0:
   version "1.2.1"
@@ -3206,7 +3206,7 @@ ini@^1.3.4, ini@~1.3.0:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/ini/-/ini-1.3.4.tgz#0537cb79daf59b59a1a517dff706c86ec039162e"
 
-inquirer@3.0.6, inquirer@^3.0.1:
+inquirer@3.0.6:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.0.6.tgz#e04aaa9d05b7a3cb9b0f407d04375f0447190347"
   dependencies:
@@ -3224,7 +3224,7 @@ inquirer@3.0.6, inquirer@^3.0.1:
     strip-ansi "^3.0.0"
     through "^2.3.6"
 
-inquirer@3.2.1:
+inquirer@3.2.1, inquirer@^3.0.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.2.1.tgz#06ceb0f540f45ca548c17d6840959878265fa175"
   dependencies:
@@ -5558,8 +5558,8 @@ react@^15.5.4:
     prop-types "^15.5.10"
 
 reactjs-calendar@^0.1.9:
-  version v0.1.121
-  resolved "https://registry.yarnpkg.com/reactjs-calendar/-/reactjs-calendar-0.1.121.tgz#d3cfde8eef05752b4503c7d2e5721986f21e6948"
+  version v0.1.123
+  resolved "https://registry.yarnpkg.com/reactjs-calendar/-/reactjs-calendar-0.1.123.tgz#c2150fb21ee16830eab17cdfa7a34175279e6569"
   dependencies:
     version "^0.1.2"
     all "^0.0.0"
