@@ -5,14 +5,14 @@ import Table, {
   TableHead,
   TableRow
 } from "material-ui/Table"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import { withStyles } from "material-ui/styles"
 import Card, { CardHeader, CardContent } from "material-ui/Card"
 import Typography from "material-ui/Typography"
 import { getCredits } from "./../api/api"
 import PropTypes from "prop-types"
 import { translate } from "react-i18next"
 
-const styleSheet = createStyleSheet("Grades", theme => ({
+const styles = theme => ({
   cardDiv: {
     display: "flex",
     flexDirection: "row",
@@ -48,7 +48,7 @@ const styleSheet = createStyleSheet("Grades", theme => ({
   tableCell: {
     width: "33%"
   }
-}))
+})
 
 class Grades extends Component {
   state = {
@@ -189,4 +189,6 @@ Grades.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styleSheet)(translate("view", { wait: true })(Grades))
+export default withStyles(styles, { name: "Grade" })(
+  translate("view", { wait: true })(Grades)
+)
