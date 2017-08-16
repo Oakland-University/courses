@@ -42,6 +42,7 @@ const styles = theme => ({
     width: "100%"
   },
   appBar: {
+    paddingTop: "16px",
     backgroundColor: theme.palette.primary[500],
     color: theme.palette.getContrastText(theme.palette.primary[500])
   },
