@@ -28,7 +28,8 @@ TabContainer.propTypes = {
 
 const styles = theme => ({
   root: {
-    minHeight: 0
+    minHeight: 0,
+    paddingTop: "1em"
   },
 
   tab: {
