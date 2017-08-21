@@ -40,7 +40,8 @@ const styles = theme => ({
   },
 
   courseTitle: {
-    fontWeight: "bolder"
+    fontWeight: "bolder",
+    fontSize: "16px !important"
   },
 
   courseInfo: {
