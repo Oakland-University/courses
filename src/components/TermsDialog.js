@@ -26,6 +26,12 @@ const styles = theme => ({
     color: "#FFFFFF"
   },
 
+  termsButton: {
+    marginRight: "1em",
+    color: "#FFFFFF",
+    boxShadow: "none"
+  },
+
   header: {
     backgroundColor: theme.palette.primary[400]
   },
@@ -215,7 +221,9 @@ class TermsDialog extends Component {
       return (
         <div>
           <Button
-            className={classes.button}
+            variant="raised"
+            color="secondary"
+            className={classes.termsButton}
             tabIndex="0"
             aria-haspopup="true"
             onClick={this.handleClick}
