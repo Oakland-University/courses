@@ -45,7 +45,7 @@ const styles = theme => ({
   appBar: {
     paddingTop: "16px !important",
     backgroundColor: theme.palette.primary[500],
-    color: theme.palette.getContrastText(theme.palette.primary[500])
+    color: theme.palette.primary.contrastText
   },
 
   flex: {
