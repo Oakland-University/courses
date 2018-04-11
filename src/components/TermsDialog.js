@@ -224,6 +224,7 @@ class TermsDialog extends Component {
   render() {
     const { t } = this.props
     const classes = this.props.classes
+    const {selected} = this.state
     if (Object.is(this.props.terms, null)) {
       return <div />
     } else {
@@ -237,7 +238,7 @@ class TermsDialog extends Component {
             aria-haspopup="true"
             onClick={this.handleClick}
           >
-            <Typography className={classes.text}>terms</Typography>
+            <Typography className={classes.text}>{selected}</Typography>
           </Button>
           <ConfirmationDialog
             classes={classes}
