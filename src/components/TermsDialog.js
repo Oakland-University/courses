@@ -1,35 +1,29 @@
 // @flow weak
 
-import React, { Component } from "react"
-import Button from "material-ui/Button"
+import React, { Component } from 'react'
+import Button from 'material-ui/Button'
 import Dialog, {
   DialogActions,
   DialogContent,
   DialogTitle
-} from "material-ui/Dialog"
-import Radio, { RadioGroup } from "material-ui/Radio"
-import { FormControlLabel } from "material-ui/Form"
-import Slide from "material-ui/transitions/Slide"
-import Typography from "material-ui/Typography"
-import PropTypes from "prop-types"
-import { translate } from "react-i18next"
-import { withStyles } from "material-ui/styles"
-import browser from "detect-browser"
+} from 'material-ui/Dialog'
+import Radio, { RadioGroup } from 'material-ui/Radio'
+import { FormControlLabel } from 'material-ui/Form'
+import Slide from 'material-ui/transitions/Slide'
+import Typography from 'material-ui/Typography'
+import PropTypes from 'prop-types'
+import { translate } from 'react-i18next'
+import { withStyles } from 'material-ui/styles'
+import browser from 'detect-browser'
 
 const styles = theme => ({
   text: {
-    color: "#FFFFFF"
+    color: '#FFFFFF'
   },
 
   button: {
-    marginRight: "1em",
-    color: "#FFFFFF"
-  },
-
-  termsButton: {
-    marginRight: "1em",
-    color: "#FFFFFF",
-    boxShadow: "none"
+    marginRight: '1em',
+    color: '#FFFFFF'
   },
 
   header: {
@@ -84,14 +78,14 @@ class ConfirmationDialog extends Component {
 
   browserCheck = terms => {
     switch (browser && browser.name) {
-      case "chrome":
-      case "firefox":
-      case "edge":
-      case "safari":
-      case "vivaldi":
+      case 'chrome':
+      case 'firefox':
+      case 'edge':
+      case 'safari':
+      case 'vivaldi':
         return false
 
-      case "ie":
+      case 'ie':
         if (terms.length >= 4) {
           return true
         } else {
@@ -102,7 +96,6 @@ class ConfirmationDialog extends Component {
         return true
     }
   }
-
 
   render() {
     const { selectedValue, t, terms, classes, ...other } = this.props
@@ -157,11 +150,11 @@ class ConfirmationDialog extends Component {
         <DialogActions>
           <Button
             onClick={this.handleOk}
-            aria-label={"Confirm selection"}
+            aria-label={'Confirm selection'}
             tabIndex="0"
             color="secondary"
           >
-            {this.props.t("ok", {})}
+            {this.props.t('ok', {})}
           </Button>
           <Button
             onClick={this.handleCancel}
@@ -169,7 +162,7 @@ class ConfirmationDialog extends Component {
             tabIndex="0"
             color="secondary"
           >
-            {this.props.t("cancel", {})}
+            {this.props.t('cancel', {})}
           </Button>
         </DialogActions>
       </Dialog>
@@ -231,9 +224,7 @@ class TermsDialog extends Component {
       return (
         <div>
           <Button
-            variant="raised"
-            color="secondary"
-            className={classes.termsButton}
+            className={classes.button}
             tabIndex="0"
             aria-haspopup="true"
             onClick={this.handleClick}
@@ -258,6 +249,6 @@ TermsDialog.propTypes = {
   classes: PropTypes.object.isRequired
 }
 
-export default withStyles(styles, { name: "TermsDialog" })(
-  translate("view", { wait: true })(TermsDialog)
+export default withStyles(styles, { name: 'TermsDialog' })(
+  translate('view', { wait: true })(TermsDialog)
 )
