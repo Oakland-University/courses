@@ -126,6 +126,7 @@ class Courses extends Component {
   }
 
   render() {
+    console.log("Hello World")
     const classes = this.props.classes
     if (Object.is(this.props.courses, null)) {
       return <div />
