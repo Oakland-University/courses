@@ -144,7 +144,7 @@ const GradeRow = courses => {
     let tableArray = []
     for (let i = 0; i < courses.length; i++) {
       let course = courses[i].subjectCode + ' - ' + courses[i].subjectNumber
-      let credits = courses[i].grade.credit
+      let credits = courses[i].credit
       let grade
 
       if (Object.is(courses[i].grade, null)) {
