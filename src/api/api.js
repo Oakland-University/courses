@@ -1,6 +1,6 @@
 export const get_terms = async url => {
   try {
-    const response = await fetch(url, { credentials: "include" })
+    const response = await fetch(url, { credentials: 'include' })
     const terms = await response.json()
     return terms.terms
   } catch (err) {
@@ -11,7 +11,6 @@ export const get_terms = async url => {
 
 export const get_courses = async (term, url) => {
   try {
-
     let data = {
       code: term.code,
       description: term.description,
@@ -21,17 +20,17 @@ export const get_courses = async (term, url) => {
     }
 
     const formBody = Object.keys(data)
-      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
-      .join("&")
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&')
 
     const response = await fetch(url, {
       body: formBody,
-      credentials: "include",
+      credentials: 'include',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
+        Accept: 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
-      method: "POST"
+      method: 'POST'
     })
     const courses = await response.json()
     return courses.courses
@@ -42,7 +41,7 @@ export const get_courses = async (term, url) => {
 
 export const get_credits = async url => {
   try {
-    const response = await fetch(url, { credentials: "include" })
+    const response = await fetch(url, { credentials: 'include' })
     const credits = await response.json()
     return credits.gpa
   } catch (err) {
@@ -52,7 +51,7 @@ export const get_credits = async url => {
 
 export const get_advising = async url => {
   try {
-    const response = await fetch(url)
+    const response = await fetch(url, { credentials: 'include' })
     const advising = await response.json()
     return advising.status
   } catch (err) {
