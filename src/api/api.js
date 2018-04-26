@@ -53,7 +53,7 @@ export const get_advising = async url => {
   try {
     const response = await fetch(url, { credentials: 'include' })
     const advising = await response.json()
-    return advising.status
+    return advising.advising.status
   } catch (err) {
     throw err
   }
