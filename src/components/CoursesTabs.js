@@ -72,6 +72,7 @@ class CoursesTabs extends Component {
       books,
       calendarURL,
       classes,
+      current_term,
       gradesURL,
       mobile,
       t,
@@ -153,7 +154,7 @@ class CoursesTabs extends Component {
           {value === 1 && (
             <TabContainer>
               <Calendar
-                eventsURLObj={calendarURL}
+                eventsURLObj={Object.assign(calendarURL, current_term)}
                 termBounds={term_bounds}
                 rootID={rootElement}
               />
