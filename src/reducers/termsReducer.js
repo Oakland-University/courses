@@ -41,7 +41,8 @@ export default function reducer(
       const terms_bounds = [parseInt(action.payload.start, 10), parseInt(action.payload.end, 10)]
       return {
         ...state,
-        current_term: action.payload
+        current_term: action.payload,
+        term_bounds: terms_bounds
       }
     }
     default:
