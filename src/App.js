@@ -11,10 +11,7 @@ import { fetch_advising } from './actions/advisingActions'
 import { fetch_terms } from './actions/termsActions'
 import { withStyles } from 'material-ui/styles'
 
-/* global termsURL */
-/* global coursesURL */
 /* global calendarEventsURL */
-/* global gpaAndCreditsURL */
 
 const calendarObj = { url: calendarEventsURL, credentialsNeeded: true }
 

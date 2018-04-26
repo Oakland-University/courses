@@ -1,7 +1,9 @@
 import { get_terms } from '../api/api'
 
+/* global terms_url */
+
 export function fetch_terms() {
-  const terms_url = 'http://localhost:8082/api/terms'
+  //const terms_url = 'http://localhost:8082/api/terms'
   return function(dispatch) {
     dispatch({ type: 'FETCH_TERMS_START', payload: {} })
     get_terms(terms_url)

@@ -1,5 +1,6 @@
 import { get_courses } from '../api/api'
-const courses_url = 'http://localhost:8082/api/courses'
+
+/* global courses_url */
 
 export function fetch_courses(new_term) {
   return function(dispatch) {

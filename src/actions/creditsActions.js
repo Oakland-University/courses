@@ -1,7 +1,9 @@
 import { get_credits } from '../api/api'
 
+/* global grades_url */
+
 export function fetch_credits() {
-  const grades_url = "http://localhost:8082/api/credits"
+  //const grades_url = "http://localhost:8082/api/credits"
   return function(dispatch) {
     dispatch({ type: 'FETCH_CREDITS_START', payload: {}})
     get_credits(grades_url)
