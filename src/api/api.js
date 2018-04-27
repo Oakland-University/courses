@@ -4,7 +4,6 @@ export const get_terms = async url => {
     const terms = await response.json()
     return terms.terms
   } catch (err) {
-    console.error(err)
     return err
   }
 }
