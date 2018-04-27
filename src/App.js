@@ -13,7 +13,7 @@ import { withStyles } from 'material-ui/styles'
 
 /* global calendarEventsURL */
 
-const calendarObj = { url: calendarEventsURL, credentialsNeeded: true }
+const calendar_obj = { url: calendarEventsURL, credentialsNeeded: true }
 
 const styles = theme => ({
   root: {
