@@ -1,15 +1,15 @@
 // @flow weak
 
-import React, { Component } from "react"
-import Button from "material-ui/Button"
-import Menu, { MenuItem } from "material-ui/Menu"
-import PropTypes from "prop-types"
-import { withStyles, createStyleSheet } from "material-ui/styles"
+import React, { Component } from 'react'
+import Button from 'material-ui/Button'
+import Menu, { MenuItem } from 'material-ui/Menu'
+import PropTypes from 'prop-types'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 
-const styleSheet = createStyleSheet("TermsMenu", theme => ({
+const styleSheet = createStyleSheet('TermsMenu', theme => ({
   mobileTermDiv: {
-    display: "flex",
-    justifyContent: "center"
+    display: 'flex',
+    justifyContent: 'center'
   }
 }))
 
@@ -23,7 +23,7 @@ class TermsMenu extends Component {
   state = {
     anchorEl: undefined,
     open: false,
-    selected: ""
+    selected: ''
   }
 
   handleClick = event => {
@@ -49,7 +49,8 @@ class TermsMenu extends Component {
             this.handleSelect(
               this.props.terms[i].description,
               this.props.terms[i]
-            )}
+            )
+          }
         >
           {this.props.terms[i].description}
         </MenuItem>
@@ -64,7 +65,7 @@ class TermsMenu extends Component {
       return <div />
     } else {
       return (
-        <div className={this.props.mobile ? classes.mobileTermDiv : ""}>
+        <div className={this.props.mobile ? classes.mobileTermDiv : ''}>
           <Button
             color="accent"
             raised

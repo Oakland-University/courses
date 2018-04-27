@@ -1,7 +1,7 @@
-import i18n from "i18next"
-import Fetch from "i18next-fetch-backend"
 import Cache from "i18next-localstorage-cache"
+import Fetch from "i18next-fetch-backend"
 import LanguageDetector from "i18next-browser-languagedetector"
+import i18n from "i18next"
 
 const translateURL = "/translations/api/v1/locales/courses/{{lng}}/{{ns}}.json"
 
