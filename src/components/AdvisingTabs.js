@@ -70,7 +70,7 @@ class AdvisingTabs extends Component {
       classes,
       courses_fetched,
       mobile,
-      rootElement,
+      root_element,
       t,
       term_bounds
     } = this.props
@@ -132,7 +132,7 @@ class AdvisingTabs extends Component {
               translateURL="/translations/api-v1/locales/calendar/{{lng}}/{{ns}}.json"
               eventsURLObj={calendarURL}
               termBounds={term_bounds}
-              rootID={rootElement}
+              rootID={root_element}
             />
           </TabContainer>
         )}
