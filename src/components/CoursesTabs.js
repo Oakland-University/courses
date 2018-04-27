@@ -153,7 +153,7 @@ class CoursesTabs extends Component {
           {value === 1 && (
             <TabContainer>
               <Calendar
-                eventsURLObj={Object.assign(calendarURL, current_term)}
+                eventsURLObj={Object.assign(calendar_url, current_term)}
                 termBounds={term_bounds}
                 rootID={root_element}
               />
