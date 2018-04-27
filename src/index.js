@@ -31,7 +31,7 @@ const theme = createMuiTheme({
   }
 })
 
-const rootElement = "courses-root"
+const root_element = "courses-root"
 const jss = create(preset())
 
 ReactDOM.render(
