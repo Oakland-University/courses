@@ -50,15 +50,9 @@ export const get_credits = async url => {
 
 export const get_advising = async url => {
   try {
-<<<<<<< HEAD
     const response = await fetch(url, { credentials: 'include' })
     const advising = await response.json()
     return advising.advising.status
-=======
-    const response = await fetch(url)
-    const advising = await response.json()
-    return advising.status
->>>>>>> upstream/master
   } catch (err) {
     throw err
   }
