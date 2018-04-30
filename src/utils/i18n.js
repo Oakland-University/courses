@@ -3,7 +3,7 @@ import Fetch from 'i18next-fetch-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import i18n from 'i18next'
 
-const translateURL = 'http://localhost:8082/locales/{{lng}}/{{ns}}.json'
+const translateURL = "/translations/api/v1/locales/courses/{{lng}}/{{ns}}.json"
 
 i18n
   .use(Fetch)
