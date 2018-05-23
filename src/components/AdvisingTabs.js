@@ -4,7 +4,6 @@
 import React from 'react'
 import Advising from './Advising'
 import AdvisingGrades from './AdvisingGrades'
-import Calendar from 'reactjs-calendar'
 import PropTypes from 'prop-types'
 import TermSelect from './TermSelect'
 import { connect } from 'react-redux'
@@ -13,9 +12,9 @@ import { translate } from 'react-i18next'
 
 import AppBar from '@material-ui/core/AppBar'
 import Assignment from '@material-ui/icons/Assignment'
-import Event from '@material-ui/icons/Event'
 import Paper from '@material-ui/core/Paper'
-import Tab from '@material-ui/core/Tabs'
+import Spellcheck from '@material-ui/icons/Spellcheck'
+import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import Toolbar from '@material-ui/core/Toolbar'
 import { withStyles } from '@material-ui/core/styles'
@@ -66,15 +65,7 @@ class AdvisingTabs extends React.Component {
   }
 
   render() {
-    const {
-      calendarURL,
-      classes,
-      courses_fetched,
-      mobile,
-      root_element,
-      t,
-      term_bounds
-    } = this.props
+    const { classes, courses_fetched, mobile, t } = this.props
     const { position } = this.state
     return (
       <Paper className={classes.inner}>
@@ -97,9 +88,15 @@ class AdvisingTabs extends React.Component {
                   tabIndex="0"
                 />
                 <Tab
-                  aria-label={t('calendar', {})}
-                  icon={<Event className={classes.button} />}
-                  alt="View your calendar events"
+                  aria-label={t('grades', {})}
+                  title="Grades"
+                  className={classes.tab}
+                  icon={
+                    <Spellcheck
+                      className={classes.button}
+                      alt="View your grades"
+                    />
+                  }
                   tabIndex="0"
                 />
               </Tabs>
@@ -111,7 +108,6 @@ class AdvisingTabs extends React.Component {
                 onChange={this.handleChange}
               >
                 <Tab label={t('courses', {})} tabIndex="0" />
-                <Tab label={t('calendar', {})} tabIndex="0" />
                 <Tab label={t('grades', {})} tabIndex="0" />
               </Tabs>
             )}
@@ -129,16 +125,6 @@ class AdvisingTabs extends React.Component {
         )}
         {position === 1 && (
           <TabContainer>
-            <Calendar
-              translateURL="/translations/api-v1/locales/calendar/{{lng}}/{{ns}}.json"
-              eventsURLObj={calendarURL}
-              termBounds={term_bounds}
-              rootID={root_element}
-            />
-          </TabContainer>
-        )}
-        {position === 2 && (
-          <TabContainer>
             <AdvisingGrades />
           </TabContainer>
         )}
@@ -154,7 +140,6 @@ AdvisingTabs.propTypes = {
 const mapStateToProps = state => ({
   courses: state.courses.courses,
   current_term: state.terms.current_term,
-  term_bounds: state.terms.term_bounds,
   courses_fetched: state.courses.fetched
 })
 
