@@ -34,7 +34,7 @@ export default function reducer(
         }
       }
 
-      action.payload.forEach(term => {
+      action.payload.terms.forEach(term => {
         if (term.current === true) {
           current_term = term
           term_start = parseInt(current_term.start, 10)
