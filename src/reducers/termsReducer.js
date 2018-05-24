@@ -21,7 +21,11 @@ export default function reducer(
         term_start,
         term_end = null
 
-      if (action.payload === [] || action.payload === null) {
+      if (
+        action.payload.terms === [] ||
+        action.payload.terms === null ||
+        action.payload.error === true
+      ) {
         return {
           ...state,
           fetching: false,
@@ -42,7 +46,7 @@ export default function reducer(
         ...state,
         fetching: false,
         fetched: true,
-        terms: action.payload,
+        terms: action.payload.terms,
         current_term: current_term,
         term_bounds: term_bounds
       }
