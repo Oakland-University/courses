@@ -31,6 +31,14 @@ const styles = theme => ({
     color: theme.palette.text.primary
   },
 
+  notificationCard: {
+    marginBottom: 10
+  },
+
+  notificationHeader: {
+    backgroundColor: '#FFF176'
+  },
+
   classHeader: {
     backgroundColor: theme.palette.primary.light
   },
@@ -85,6 +93,32 @@ class Grades extends React.Component {
     } = this.props
     if (courses_fetched && credits_fetched) {
       return (
+        <div>
+          <Card className={classes.notificationCard}>
+            <CardHeader
+              className={classes.notificationHeader}
+              title={
+                <Typography
+                  tabIndex="0"
+                  component="h1"
+                  className={classes.classHeaderSpan}
+                >
+                Attention
+              </Typography>
+              }
+            />
+            <CardContent>
+              The way the university calculates grades is changing.
+              If you have any questions, refer to the document
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit">
+                here
+              </a>
+            </CardContent>
+          </Card>
+ 
         <Card className={classes.card}>
           <CardHeader
             className={classes.classHeader}
@@ -134,6 +168,7 @@ class Grades extends React.Component {
             </Table>
           </CardContent>
         </Card>
+      </div>
       )
     } else {
       return <div />
