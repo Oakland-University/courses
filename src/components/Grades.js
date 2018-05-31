@@ -45,6 +45,7 @@ const styles = theme => ({
 
   classHeaderSpan: {
     fontWeight: 600,
+    fontSize: 20,
     color: 'rgba(0, 0, 0, 0.75)'
   },
 
@@ -114,7 +115,7 @@ class Grades extends React.Component {
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit">
-                here
+                 here
               </a>
             </CardContent>
           </Card>
@@ -127,7 +128,6 @@ class Grades extends React.Component {
                 tabIndex="0"
                 component="h1"
                 className={classes.classHeaderSpan}
-                style={{ fontSize: '20px' }}
               >
                 {t('gac', {})}
               </Typography>
