@@ -45,7 +45,7 @@ const styles = theme => ({
 
   classHeaderSpan: {
     fontWeight: 600,
-    fontSize: 20,
+    fontSize: '20px !important',
     color: 'rgba(0, 0, 0, 0.75)'
   },
 
@@ -110,12 +110,13 @@ class Grades extends React.Component {
             />
             <CardContent>
               The way the university calculates grades is changing.
-              If you have any questions, refer to the document
+              If you have any questions, refer to the document:
               <a
+                style={{marginLeft: 3}}
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit">
-                 here
+                Office of the Registrar Letter Grade Scale FAQs
               </a>
             </CardContent>
           </Card>
