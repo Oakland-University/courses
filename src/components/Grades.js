@@ -112,7 +112,7 @@ class Grades extends React.Component {
               The way the university calculates grades is changing.
               If you have any questions, refer to the document:
               <a
-                style={{marginLeft: 3}}
+                style={{marginLeft: 3, color: '#1a0dab'}}
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit">
