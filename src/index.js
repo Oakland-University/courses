@@ -14,6 +14,7 @@ import i18n from './utils/i18n'
 import preset from 'jss-preset-default'
 import store from './store'
 
+/* eslint-disable no-self-compare */
 if (!Object.is) {
   Object.is = function(x, y) {
     // SameValue algorithm
