@@ -57,3 +57,35 @@ export const get_advising = async url => {
     throw err
   }
 }
+
+export const get_pdf = async (term, url) => {
+  try {
+    let data = {
+      code: term.code,
+      description: term.description,
+      current: term.code,
+      end: term.end,
+      start: term.start
+    }
+
+    const formBody = Object.keys(data)
+      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+      .join('&')
+
+    const response = await fetch(url, {
+      body: formBody,
+      credentials: 'include',
+      headers: {
+        Accept: 'application/pdf',
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      method: 'POST'
+    })
+    window.url = await response
+    console.log(url)
+    return url
+  } catch (err) {
+    console.error(err)
+    return err
+  }
+}
