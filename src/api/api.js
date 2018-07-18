@@ -82,8 +82,6 @@ export const get_pdf = async (term, url) => {
       method: 'POST'
     })
     window.url = await response
-    console.log(url)
-    return url
   } catch (err) {
     console.error(err)
     return err
