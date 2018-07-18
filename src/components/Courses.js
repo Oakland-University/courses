@@ -11,6 +11,7 @@ import WaitlistCourse from './WaitlistCourse'
 import { connect } from 'react-redux'
 import { fetch_courses } from './../actions/coursesActions'
 import { getBookButton } from './BuyBooks'
+import { getPrintButton } from './PrintCourses'
 import { translate } from 'react-i18next'
 
 import Card from '@material-ui/core/Card'
@@ -174,6 +175,13 @@ class Courses extends React.Component {
               mobile,
               classes.rightIcon
             )}
+            {getPrintButton(
+              current_term,
+              mobile,
+              classes.rightIcon
+            )}
+          </div>
+          <div className={classes.buttonDiv}>
           </div>
           <div
             className={mobile ? classes.coursesDivMobile : classes.coursesDiv}
