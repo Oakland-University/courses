@@ -1,8 +1,8 @@
 import React from 'react'
 
-import BookIcon from '@material-ui/icons/ImportContacts'
+import PrintIcon from '@material-ui/icons/Print'
 import Button from '@material-ui/core/Button'
-import { get_pdf} from '../api/api'
+import { get_pdf } from '../api/api'
 
 /* global print_url */
 
@@ -25,7 +25,7 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
         onClick={() => handlePrint(term)}
       >
         Print Courses
-        <BookIcon className={rightIconStyle} />
+        <PrintIcon className={rightIconStyle} />
       </Button>
     </div>
   )
