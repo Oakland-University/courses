@@ -2,7 +2,6 @@ import React from 'react'
 
 import PrintIcon from '@material-ui/icons/Print'
 import Button from '@material-ui/core/Button'
-import { get_pdf } from '../api/api'
 
 /* global print_url */
 
@@ -27,12 +26,30 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
         Print Courses
         <PrintIcon className={rightIconStyle} />
       </Button>
+      <form
+        name="PrintCoursesForm"
+        method="post"
+        target="_blank"
+        rel="noopener noreferrer"
+        action={print_url}
+        hidden
+      >
+        <input type="hidden" name="code" value={term.code}/>
+        <input type="hidden" name="current" value="random nonsense" />
+        <input type="hidden" name="description" value={term.description} />
+        <input type="hidden" name="start" value={term.start} />
+        <input type="hidden" name="end" value={term.end} />
+        <button
+          className="courses-portlet-print-form"
+          id="courses-portlet-print-form"
+          type="submit"
+        />
+      </form>
     </div>
   )
 }
 
-const handlePrint = (term) => {
-  const url = get_pdf(term, print_url).then(u => {
-    window.open(u)
-  })
+const handlePrint = () => {
+  document.getElementById('courses-portlet-print-form').click()
 }
+
