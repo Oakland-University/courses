@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button'
 /* global print_url */
 
 const mobileStyle = {
-  margin: 'auto'
+  marginLeft: '1em'
 }
 
 const style = {
