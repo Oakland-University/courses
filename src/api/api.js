@@ -1,6 +1,11 @@
 export const get_terms = async url => {
   try {
-    const response = await fetch(url, { credentials: 'include' })
+    const response = await fetch(url, {
+      credentials: 'include',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
     const terms = await response.json()
     return terms
   } catch (err) {
@@ -23,11 +28,18 @@ export const get_courses = async (term, url) => {
       .join('&')
 
     const response = await fetch(url, {
-      body: formBody,
+      body: JSON.stringify({
+        code: term.code,
+        description: term.description,
+        state_date: term.start,
+        end_date: term.end,
+        current: term.current
+      }),
       credentials: 'include',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        //Accept: 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json; charset=utf-8'
       },
       method: 'POST'
     })
@@ -40,9 +52,14 @@ export const get_courses = async (term, url) => {
 
 export const get_credits = async url => {
   try {
-    const response = await fetch(url, { credentials: 'include' })
+    const response = await fetch(url, {
+      credentials: 'include',
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
     const credits = await response.json()
-    return credits.gpa
+    return credits
   } catch (err) {
     return err
   }

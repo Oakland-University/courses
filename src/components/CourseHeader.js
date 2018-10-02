@@ -54,7 +54,7 @@ const styles = theme => ({
 class CourseHeader extends React.Component {
   getHeader() {
     const { classes, course, t } = this.props
-    if (Object.is(course.waitList, '0')) {
+    if (Object.is(course.waitlist, '0')) {
       return (
         <CardHeader
           className={classes.classHeader}
@@ -111,7 +111,7 @@ class CourseHeader extends React.Component {
                   {t('credits', {}) + ': ' + course.credit}
                 </span>
                 <span tabIndex="0" className={classes.courseInfo}>
-                  {t('waitlist', {}) + ': ' + course.waitList}
+                  {t('waitlist', {}) + ': ' + course.waitlist}
                 </span>
               </div>
             </div>

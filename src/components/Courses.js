@@ -88,7 +88,7 @@ class Courses extends React.Component {
             mobile={mobile}
           />
         )
-      } else if (!Object.is(courses[i].waitList, '0')) {
+      } else if (courses[i].waitlist !== '0') {
         elements.push(
           <WaitlistCourse
             course={courses[i]}

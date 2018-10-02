@@ -21,11 +21,7 @@ export default function reducer(
         term_start,
         term_end = null
 
-      if (
-        action.payload.terms === [] ||
-        action.payload.terms === null ||
-        action.payload.error === true
-      ) {
+      if (action.payload === [] || action.payload === null) {
         return {
           ...state,
           fetching: false,
@@ -34,7 +30,7 @@ export default function reducer(
         }
       }
 
-      action.payload.terms.forEach(term => {
+      action.payload.forEach(term => {
         if (term.current === true) {
           current_term = term
           term_start = parseInt(current_term.start, 10)
@@ -46,7 +42,7 @@ export default function reducer(
         ...state,
         fetching: false,
         fetched: true,
-        terms: action.payload.terms,
+        terms: action.payload,
         current_term: current_term,
         term_bounds: term_bounds
       }

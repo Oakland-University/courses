@@ -73,7 +73,7 @@ class Grades extends React.Component {
     for (let cr of credits) {
       rows.push(
         <TableRow key={i++}>
-          <TableCell>{cr.level}</TableCell>
+          <TableCell>{cr.standing}</TableCell>
           <TableCell>{cr.credits}</TableCell>
           <TableCell>{cr.gpa}</TableCell>
         </TableRow>

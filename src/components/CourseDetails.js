@@ -88,7 +88,7 @@ class CourseDetails extends React.Component {
           >
             <DialogTitle
               className={
-                Object.is(course.waitList, '0')
+                Object.is(course.waitlist, '0')
                   ? classes.dialogHeader
                   : classes.dialogHeaderWaitList
               }

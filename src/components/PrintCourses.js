@@ -1,5 +1,7 @@
 import React from 'react'
 
+import save from 'save-file'
+
 import PrintIcon from '@material-ui/icons/Print'
 import Button from '@material-ui/core/Button'
 
@@ -21,7 +23,7 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
         title="Print Courses"
         variant="raised"
         tabIndex="0"
-        onClick={() => handlePrint(term)}
+        onClick={term => handlePrint(term)}
       >
         Print Courses
         <PrintIcon className={rightIconStyle} />
@@ -31,8 +33,9 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
         method="post"
         target="_blank"
         rel="noopener noreferrer"
-        action={print_url}
+        //action={print_url}
         hidden
+        id="test-form"
       >
         <input type="hidden" name="code" value={term.code}/>
         <input type="hidden" name="current" value="random nonsense" />
@@ -44,12 +47,30 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
           id="courses-portlet-print-form"
           type="submit"
         />
-      </form>
+</form>
     </div>
   )
 }
 
-const handlePrint = () => {
-  document.getElementById('courses-portlet-print-form').click()
-}
+const handlePrint = async term => {
+    let data = {
+      code: term.code,
+      description: term.description,
+      current: term.code,
+      end: term.end,
+      start: term.start
+    }
 
+  const formBody = Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])).join('&')
+
+  const response = await fetch(print_url, {
+    body: formBody,
+    method: 'POST',
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('token'),
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+
+  const blob = await response.blob()
+}
