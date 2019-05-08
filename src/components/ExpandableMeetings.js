@@ -87,6 +87,7 @@ class ExpandableMeetings extends React.Component {
               target="_blank"
               href={getMapUrl(meetings[i].buildingRoom, false)}
               rel="noopener noreferrer"
+              aria-describedby="new-window-2"
             >
               {meetings[i].buildingRoom + ' [' + meetings[i].campus + ']'}
             </a>
@@ -162,6 +163,7 @@ class ExpandableMeetings extends React.Component {
             target="_blank"
             href={getMapUrl(meeting.buildingRoom, false)}
             rel="noopener noreferrer"
+            aria-describedby="new-window-2"
           >
             {meeting.buildingRoom + ' [' + meeting.campus + ']'}
           </a>

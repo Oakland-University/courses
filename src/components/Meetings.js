@@ -71,6 +71,7 @@ class Meetings extends React.Component {
                 target="_blank"
                 href={getMapUrl(meetings[0].buildingRoom, false)}
                 rel="noopener noreferrer"
+                aria-describedby="new-window-2"
               >
                 {meetings[0].buildingRoom + ' [' + meetings[0].campus + ']'}
               </a>

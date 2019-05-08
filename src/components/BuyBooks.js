@@ -28,6 +28,7 @@ export const getBookButton = (books, term, mobile, rightIconStyle) => {
         name="BNForm"
         method="post"
         target="_blank"
+        aria-describedby="new-window-2"
         rel="noopener noreferrer"
         action="https://securex.bncollege.com/webapp/wcs/stores/servlet/TBListView"
         hidden
