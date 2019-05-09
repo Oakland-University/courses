@@ -38,9 +38,9 @@ class Meetings extends React.Component {
     const { classes, meetings } = this.props
     if (Object.is(meetings, null)) {
       return <div key={'emptyDiv' + Math.random()} />
-    } else if (meetings.length === 0) {
+    } else if (/*meetings.length === 0*/ true) {
       return (
-        <div>
+        <div className={classes.meetBorder}>
           <Typography variant="body1" className={classes.meetNoLink} tabIndex="0">
             N/A
           </Typography>
