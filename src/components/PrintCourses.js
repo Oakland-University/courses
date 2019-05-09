@@ -32,6 +32,7 @@ export const getPrintButton = (term, mobile, rightIconStyle) => {
         target="_blank"
         rel="noopener noreferrer"
         action={print_url}
+        aria-describedby="download"
         hidden
       >
         <input type="hidden" name="code" value={term.code}/>

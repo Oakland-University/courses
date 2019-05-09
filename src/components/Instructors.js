@@ -157,6 +157,7 @@ class Instructors extends React.Component {
                       href={'mailto:' + teachers[i].email}
                       rel="noopener noreferrer"
                       target="_blank"
+                      aria-describedby="email-application"
                     >
                       {teachers[i].email}
                     </a>
@@ -176,6 +177,7 @@ class Instructors extends React.Component {
                       href={getMapUrl(teachers[i].office, true)}
                       rel="noopener noreferrer"
                       target="_blank"
+                      aria-describedby="new-window-2"
                     >
                       {teachers[i].office}
                     </a>

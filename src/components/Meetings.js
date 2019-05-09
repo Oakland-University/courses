@@ -40,7 +40,7 @@ class Meetings extends React.Component {
       return <div key={'emptyDiv' + Math.random()} />
     } else if (meetings.length === 0) {
       return (
-        <div>
+        <div className={classes.meetBorder}>
           <Typography variant="body1" className={classes.meetNoLink} tabIndex="0">
             N/A
           </Typography>
@@ -71,6 +71,7 @@ class Meetings extends React.Component {
                 target="_blank"
                 href={getMapUrl(meetings[0].buildingRoom, false)}
                 rel="noopener noreferrer"
+                aria-describedby="new-window-2"
               >
                 {meetings[0].buildingRoom + ' [' + meetings[0].campus + ']'}
               </a>
