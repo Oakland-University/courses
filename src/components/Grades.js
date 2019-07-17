@@ -8,6 +8,7 @@ import { translate } from 'react-i18next'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import Divider from '@material-ui/core/Divider'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -22,21 +23,18 @@ const styles = theme => ({
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
+
   card: {
     backgroundColor: '#fafafa'
+  },
+
+  cardBottom: {
+    paddingBottom: 16
   },
 
   courseTitle: {
     fontSize: 16,
     color: theme.palette.text.primary
-  },
-
-  notificationCard: {
-    marginBottom: 10
-  },
-
-  notificationHeader: {
-    backgroundColor: '#FFF176'
   },
 
   classHeader: {
@@ -50,7 +48,6 @@ const styles = theme => ({
   },
 
   content: {
-    paddingTop: 0,
     overflowX: 'scroll'
   },
   tableCell: {
@@ -58,7 +55,7 @@ const styles = theme => ({
     fontWeight: 600,
     fontSize: 14,
     width: '33%'
-  }
+  },
 })
 
 class Grades extends React.Component {
@@ -95,33 +92,6 @@ class Grades extends React.Component {
     if (courses_fetched && credits_fetched) {
       return (
         <div>
-          <Card className={classes.notificationCard}>
-            <CardHeader
-              className={classes.notificationHeader}
-              title={
-                <Typography
-                  tabIndex="0"
-                  component="h1"
-                  className={classes.classHeaderSpan}
-                >
-                Attention
-              </Typography>
-              }
-            />
-            <CardContent>
-              The way the university calculates grades is changing.
-              If you have any questions, refer to the document:
-              <a
-                style={{marginLeft: 3, color: '#1a0dab'}}
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit"
-                aria-describedby="new-window-2">
-                Office of the Registrar Letter Grade Scale FAQs
-              </a>
-            </CardContent>
-          </Card>
- 
         <Card className={classes.card}>
           <CardHeader
             className={classes.classHeader}
@@ -136,6 +106,17 @@ class Grades extends React.Component {
             }
           />
           <CardContent className={mobile ? classes.content : null}>
+            <div className={classes.cardBottom}>
+              The way the university calculates grades has changed as of the Fall 2018 semester. If you have any questions, refer to the document:
+              <a
+                style={{marginLeft: 3, color: '#1a0dab'}}
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://docs.google.com/document/d/182ghMFyrH7qpZ5FcJ7KrMZ0AOc6uda6ytRak-KrxXdM/edit">
+                Office of the Registrar Letter Grade Scale FAQs
+              </a>
+            </div>
+            <Divider variant="middle" />
             <Table>
               <TableHead>
                 <TableRow className={classes.tableHeader}>
