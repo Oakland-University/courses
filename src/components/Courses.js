@@ -15,10 +15,6 @@ import { getPrintButton } from './PrintCourses'
 import { translate } from 'react-i18next'
 
 import Info from '@material-ui/icons/Info'
-import List from '@material-ui/core/List'
-import ListItem from '@material-ui/core/ListItem'
-import ListItemAvatar from '@material-ui/core/ListItemAvatar'
-import ListItemText from '@material-ui/core/ListItemText'
 
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
