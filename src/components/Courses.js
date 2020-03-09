@@ -14,9 +14,12 @@ import { getBookButton } from './BuyBooks'
 import { getPrintButton } from './PrintCourses'
 import { translate } from 'react-i18next'
 
+import Info from '@material-ui/icons/Info'
+
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
@@ -67,6 +70,47 @@ const styles = theme => ({
 
   progress: {
     margin: `0 ${theme.spacing.unit * 2}px`
+  },
+
+  infoCard: {
+    margin: 10,
+    marginTop: 20,
+    borderLeft: '10px solid #31708F'
+  },
+
+  header: {
+    borderBottom: '1px solid #d3d3d3',
+    borderRadius: 0,
+    boxShadow: 'none',
+    padding: '10px',
+  },
+
+  avatar: {
+    minWidth: 32
+  },
+
+  icon: {
+    color: '#31708F',
+    fontSize: 32
+  },
+
+  headerContent: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "start",
+  },
+
+  sampleColor: {
+    height: "15px",
+    width: "15px",
+    backgroundColor: "#D79873",
+    alignSelf: "center",
+    borderRadius: "5px",
+    paddingLeft: "5px",
+  },
+
+  notificationText: {
+    paddingLeft: 0,
   }
 })
 
@@ -137,6 +181,13 @@ class Courses extends React.Component {
     return elements
   }
 
+  hasOffCampusCourses = () => {
+    const {courses} = this.props
+    for (let i = 0;i < courses.length; i++) {
+      return courses[i].meetings.some(meeting => meeting.campus !== "Main Campus" && meeting.campus !== "Internet")
+    }
+  }
+
   render() {
     const {
       books,
@@ -181,6 +232,27 @@ class Courses extends React.Component {
               classes.rightIcon
             )}
           </div>
+          {this.hasOffCampusCourses()===true &&
+            (
+            <Card className={classes.infoCard}>
+              <CardHeader
+              className = {classes.header}
+              classes={{
+                title: classes.headerContent
+              }}
+              avatar= {
+                <Info className={classes.icon} />
+              }
+              title={
+                <div className={classes.headerContent}>
+                  <Typography>Courses not taken at the main campus will now appear as this color:</Typography>&nbsp;<div className={classes.sampleColor}/>
+		  <Typography>The location of a course can be found in the first field under Class Information.</Typogaphy>    
+                </div>
+              }
+              >
+              </CardHeader>
+            </Card>
+            )}
           <div className={classes.buttonDiv}>
           </div>
           <div

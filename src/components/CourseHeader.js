@@ -18,6 +18,11 @@ const styles = theme => ({
     textAlign: 'center'
   },
 
+  classHeaderOffCampus: {
+    backgroundColor: "#D79873",
+    textAlign: 'center'
+  },
+
   classHeaderSpanDiv: {
     display: 'flex',
     flexDirection: 'column'
@@ -54,38 +59,7 @@ const styles = theme => ({
 class CourseHeader extends React.Component {
   getHeader() {
     const { classes, course, t } = this.props
-    if (Object.is(course.waitList, '0')) {
-      return (
-        <CardHeader
-          className={classes.classHeader}
-          title={
-            <Typography
-              variant="subtitle1"
-              tabIndex="0"
-              className={classes.courseTitle}
-            >
-              {course.courseTitle}
-            </Typography>
-          }
-          subheader={
-            <div className={classes.classHeaderSpanDiv}>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {course.subjectCode +
-                  '-' +
-                  course.subjectNumber +
-                  '-' +
-                  course.section +
-                  '-' +
-                  course.crn}
-              </span>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {t('credits', {}) + ': ' + course.credit}
-              </span>
-            </div>
-          }
-        />
-      )
-    } else {
+    if (!Object.is(course.waitList, '0')) {
       return (
         <CardHeader
           className={classes.classHeaderWaitList}
@@ -118,8 +92,70 @@ class CourseHeader extends React.Component {
           }
         />
       )
+    } else if (course.meetings[0].campus !== "Main Campus" && course.meetings[0].campus !== "Internet") {
+      return (
+        <CardHeader
+          className={classes.classHeaderOffCampus}
+          title={
+            <Typography
+              variant="subtitle1"
+              tabIndex="0"
+              className={classes.courseTitle}
+            >
+              {course.courseTitle}
+            </Typography>
+          }
+          subheader={
+            <div className={classes.classHeaderSpanDiv}>
+              <span tabIndex="0" className={classes.courseInfo}>
+                {course.subjectCode +
+                  '-' +
+                  course.subjectNumber +
+                  '-' +
+                  course.section +
+                  '-' +
+                  course.crn}
+              </span>
+              <span tabIndex="0" className={classes.courseInfo}>
+                {t('credits', {}) + ': ' + course.credit}
+              </span>
+            </div>
+          }
+        />
+      )
+    } else {
+      return (
+        <CardHeader
+          className={classes.classHeader}
+          title={
+            <Typography
+              variant="subtitle1"
+              tabIndex="0"
+              className={classes.courseTitle}
+            >
+              {course.courseTitle}
+            </Typography>
+          }
+          subheader={
+            <div className={classes.classHeaderSpanDiv}>
+              <span tabIndex="0" className={classes.courseInfo}>
+                {course.subjectCode +
+                  '-' +
+                  course.subjectNumber +
+                  '-' +
+                  course.section +
+                  '-' +
+                  course.crn}
+              </span>
+              <span tabIndex="0" className={classes.courseInfo}>
+                {t('credits', {}) + ': ' + course.credit}
+              </span>
+            </div>
+          }
+        />
+      )
     }
-  }
+  } 
   render() {
     return <div>{this.getHeader()}</div>
   }
