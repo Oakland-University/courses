@@ -57,6 +57,12 @@ const styles = theme => ({
 })
 
 class CourseHeader extends React.Component {
+
+  is_off_campus = desc => {
+    desc = desc.toLowerCase()
+    return (desc === 'mt. clemens' || desc === 'macomb' || desc === 'off-campus - domestic' || desc === 'off-campus - international')
+  }
+
   getHeader() {
     const { classes, course, t } = this.props
     if (!Object.is(course.waitList, '0')) {
@@ -92,7 +98,7 @@ class CourseHeader extends React.Component {
           }
         />
       )
-    } else if (course.meetings[0].campus !== "Main Campus" && course.meetings[0].campus !== "Internet") {
+    } else if (this.is_off_campus(course.meetings[0].campus)) {
       return (
         <CardHeader
           className={classes.classHeaderOffCampus}

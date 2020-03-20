@@ -246,7 +246,7 @@ class Courses extends React.Component {
               title={
                 <div className={classes.headerContent}>
                   <Typography>Courses not taken at the main campus will now appear as this color:</Typography>&nbsp;<div className={classes.sampleColor}/>
-		  <Typography>The location of a course can be found in the first field under Class Information.</Typogaphy>    
+                  <Typography>The location of a course can be found in the first field under Class Information.</Typography>
                 </div>
               }
               >
