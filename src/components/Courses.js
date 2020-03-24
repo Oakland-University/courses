@@ -23,6 +23,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
+import { is_off_campus } from '../utils/offCampus'
 
 const styles = theme => ({
   courseContainer: {
@@ -96,7 +97,7 @@ const styles = theme => ({
 
   headerContent: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "start",
   },
 
@@ -105,8 +106,9 @@ const styles = theme => ({
     width: "15px",
     backgroundColor: "#D79873",
     alignSelf: "center",
-    borderRadius: "5px",
-    paddingLeft: "5px",
+    borderRadius: "2px",
+    paddingLeft: "6px",
+    paddingRight: "6px",
   },
 
   notificationText: {
@@ -182,10 +184,7 @@ class Courses extends React.Component {
   }
 
   hasOffCampusCourses = () => {
-    const {courses} = this.props
-    for (let i = 0;i < courses.length; i++) {
-      return courses[i].meetings.some(meeting => meeting.campus !== "Main Campus" && meeting.campus !== "Internet")
-    }
+    return this.props.courses.some(course => course.meetings.some(meeting => is_off_campus(meeting.campus)))
   }
 
   render() {
@@ -245,8 +244,8 @@ class Courses extends React.Component {
               }
               title={
                 <div className={classes.headerContent}>
-                  <Typography>Courses not taken at the main campus will now appear as this color:</Typography>&nbsp;<div className={classes.sampleColor}/>
-		  <Typography>The location of a course can be found in the first field under Class Information.</Typogaphy>    
+                  <Typography>Courses not taken at the main campus will now appear as this color: &nbsp;<span className={classes.sampleColor}/></Typography>
+                  <Typography>The location of a course can be found in the first field under Class Information.</Typography>
                 </div>
               }
               >
