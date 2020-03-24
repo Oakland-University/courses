@@ -96,7 +96,7 @@ const styles = theme => ({
 
   headerContent: {
     display: "flex",
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "start",
   },
 
@@ -105,8 +105,9 @@ const styles = theme => ({
     width: "15px",
     backgroundColor: "#D79873",
     alignSelf: "center",
-    borderRadius: "5px",
-    paddingLeft: "5px",
+    borderRadius: "2px",
+    paddingLeft: "6px",
+    paddingRight: "6px",
   },
 
   notificationText: {
@@ -245,7 +246,7 @@ class Courses extends React.Component {
               }
               title={
                 <div className={classes.headerContent}>
-                  <Typography>Courses not taken at the main campus will now appear as this color:</Typography>&nbsp;<div className={classes.sampleColor}/>
+                  <Typography>Courses not taken at the main campus will now appear as this color: &nbsp;<div className={classes.sampleColor}/></Typography>
                   <Typography>The location of a course can be found in the first field under Class Information.</Typography>
                 </div>
               }
