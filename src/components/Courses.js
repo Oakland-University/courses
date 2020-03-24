@@ -23,6 +23,7 @@ import CardHeader from '@material-ui/core/CardHeader'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
+import { is_off_campus } from '../utils/offCampus'
 
 const styles = theme => ({
   courseContainer: {
@@ -185,7 +186,7 @@ class Courses extends React.Component {
   hasOffCampusCourses = () => {
     const {courses} = this.props
     for (let i = 0;i < courses.length; i++) {
-      return courses[i].meetings.some(meeting => meeting.campus !== "Main Campus" && meeting.campus !== "Internet")
+      return courses[i].meetings.some(meeting => is_off_campus(meeting.campus))
     }
   }
 
