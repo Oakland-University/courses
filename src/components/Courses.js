@@ -184,10 +184,7 @@ class Courses extends React.Component {
   }
 
   hasOffCampusCourses = () => {
-    const {courses} = this.props
-    for (let i = 0;i < courses.length; i++) {
-      return courses[i].meetings.some(meeting => is_off_campus(meeting.campus))
-    }
+    return this.props.courses.some(course => course.meetings.some(meeting => is_off_campus(meeting.campus)))
   }
 
   render() {
@@ -247,7 +244,7 @@ class Courses extends React.Component {
               }
               title={
                 <div className={classes.headerContent}>
-                  <Typography>Courses not taken at the main campus will now appear as this color: &nbsp;<div className={classes.sampleColor}/></Typography>
+                  <Typography>Courses not taken at the main campus will now appear as this color: &nbsp;<span className={classes.sampleColor}/></Typography>
                   <Typography>The location of a course can be found in the first field under Class Information.</Typography>
                 </div>
               }
