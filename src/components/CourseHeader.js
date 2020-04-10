@@ -94,7 +94,7 @@ class CourseHeader extends React.Component {
           }
         />
       )
-    } else if (is_off_campus(course.meetings[0].campus)) {
+    } else if (course.meetings[0] && is_off_campus(course.meetings[0].campus)) {
       return (
         <CardHeader
           className={classes.classHeaderOffCampus}
