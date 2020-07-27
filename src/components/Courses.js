@@ -74,7 +74,6 @@ const styles = theme => ({
   },
 
   infoCard: {
-    margin: 10,
     marginTop: 20,
     borderLeft: '10px solid #31708F'
   },
@@ -231,6 +230,25 @@ class Courses extends React.Component {
               classes.rightIcon
             )}
           </div>
+          <Card className={classes.infoCard}>
+              <CardHeader
+              className = {classes.header}
+              classes={{
+                title: classes.headerContent
+              }}
+              avatar= {
+                <Info className={classes.icon} />
+              }
+              title={
+                <div className={classes.headerContent}>
+                  <Typography> <strong>Note: </strong>Your course may have multiple meeting times. Please click
+                  the down arrow listed next to the meeting time to view the full
+                  course schedule</Typography>
+                </div>
+              }
+              >
+              </CardHeader>
+            </Card>
           {this.hasOffCampusCourses()===true &&
             (
             <Card className={classes.infoCard}>
@@ -252,8 +270,6 @@ class Courses extends React.Component {
               </CardHeader>
             </Card>
             )}
-          <div className={classes.buttonDiv}>
-          </div>
           <div
             className={mobile ? classes.coursesDivMobile : classes.coursesDiv}
           >
