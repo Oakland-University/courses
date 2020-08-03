@@ -243,7 +243,7 @@ class Courses extends React.Component {
                 <div className={classes.headerContent}>
                   <Typography> <strong>Note: </strong>Your course may have multiple meeting times. Please click
                   the down arrow listed next to the meeting time to view the full
-                  course schedule</Typography>
+                  course schedule.</Typography>
                 </div>
               }
               >
