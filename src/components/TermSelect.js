@@ -1,183 +1,112 @@
-// @flow weak
+import React, { useState, useEffect } from 'react'
 
-import React from 'react'
-import { connect } from 'react-redux'
-import { fetch_courses } from './../actions/coursesActions'
-import { set_current_term } from './../actions/termsActions'
-import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
-
-import Input from '@material-ui/core/Input'
-import Select from '@material-ui/core/Select'
 import FormControl from '@material-ui/core/FormControl'
+import Input from '@material-ui/core/Input'
 import MenuItem from '@material-ui/core/MenuItem'
-import { withStyles } from '@material-ui/core/styles'
+import Select from '@material-ui/core/Select'
+import { makeStyles } from '@material-ui/styles'
+import { update_term } from './../actions/termActions'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetch_events } from '../actions/eventsActions'
+import { fetch_selected_courses } from '../actions/termActions'
 
-const styles = theme => ({
-  text: {
-    color: '#FFFFFF'
-  },
-
-  button: {
-    marginRight: '1em',
-    color: '#FFFFFF'
-  },
-
-  header: {
-    backgroundColor: theme.palette.primary.main
-  },
-
-  title: {
-    fontWeight: 600,
-    color: theme.palette.primary.contrastText
-  },
-
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
   },
-
   formControl: {
-    margin: theme.spacing.unit,
-    minWidth: 120
+    margin: theme.spacing(),
+    minWidth: 120,
   },
-
-  selectEmpty: {
-    marginTop: theme.spacing.unit * 2
+  input: {
+    paddingBottom: 2,
+    paddingLeft: 10,
   },
-
   inputRoot: {
     color: 'white',
     underline: {
       '&before': {
-        borderBottomColor: 'white'
-      }
-    }
+        borderBottomColor: 'white',
+      },
+    },
   },
-
   select: {
     '&:focus': {
-      color: 'white'
-    }
+      color: 'white',
+    },
   },
-
   selectIcon: {
-    color: 'white'
+    color: 'white',
   },
-
   underline: {
     '&:before': {
-      borderBottomColor: 'white'
+      borderBottomColor: 'white',
     },
-
     '&:after': {
-      borderBottomColor: 'white'
+      borderBottomColor: 'white',
+    },
+  },
+}))
+
+export default function TermSelect() {
+  const selected_term = useSelector((state) => state.selected_term)
+  const terms = useSelector((state) => state.terms)
+  const [selectedTerm, setSelectedTerm] = useState(null)
+  const classes = useStyles()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (selected_term !== null) {
+      setSelectedTerm(selected_term)
     }
-  }
-})
+  }, [selected_term])
 
-class TermSelect extends React.Component {
-  state = {
-    selected: '',
-    selectedValue: '',
-    open: false
-  }
-  componentDidMount() {
-    const { current_term } = this.props
-    this.setState({
-      selected: current_term.description,
-      selectedValue: current_term.code
-    })
-  }
-
-  getTerms = () => {
-    const { terms } = this.props
-    let items = terms.map(term => {
-      return (
-        <MenuItem key={term.code} value={term.code}>
-          {term.description}
-        </MenuItem>
-      )
-    })
-    return items
-  }
-
-  handleChange = event => {
-    const { terms } = this.props
-    let new_term = null
-    for (const term of terms) {
-      if (Object.is(term.code, event.target.value)) {
-        new_term = term
-        this.setState({
-          selected: term.description,
-          selectedValue: event.target.value,
-          open: false
-        })
-        new_term = term
+  const handleChange = (event) => {
+    terms.forEach((term) => {
+      if (term.code === event.target.value) {
+        dispatch(update_term(term))
+        setSelectedTerm(term)
+        dispatch(fetch_selected_courses(term))
+        dispatch(fetch_events(term.code))
       }
-    }
-
-    this.props.set_current_term(new_term)
-    this.props.fetch_courses(new_term)
+    })
   }
 
-  render() {
-    const { classes, terms } = this.props
-    const { selectedValue } = this.state
-    if (Object.is(terms, null)) {
-      return <div />
-    } else {
-      return (
-        <div>
-          <form className={classes.root} autoComplete="off">
-            <FormControl className={classes.formControl}>
-              <Select
-                value={selectedValue}
-                onChange={this.handleChange}
-                autoWidth={true}
-                classes={{
-                  select: classes.select,
-                  icon: classes.selectIcon
-                }}
-                input={
-                  <Input
-                    id="terms-dropdown"
-                    name="terms"
-                    classes={{
-                      root: classes.inputRoot,
-                      underline: classes.underline
-                    }}
-                  />
-                }
-              >
-                {this.getTerms()}
-              </Select>
-            </FormControl>
-          </form>
-        </div>
-      )
-    }
-  }
-}
-
-TermSelect.propTypes = {
-  classes: PropTypes.object.isRequired
-}
-
-const mapStateToProps = state => ({
-  current_term: state.terms.current_term,
-  terms: state.terms.terms
-})
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetch_courses: new_term => dispatch(fetch_courses(new_term)),
-    set_current_term: new_term => dispatch(set_current_term(new_term))
-  }
-}
-
-export default withStyles(styles, { name: 'TermSelect' })(
-  translate('view', { wait: true })(
-    connect(mapStateToProps, mapDispatchToProps)(TermSelect)
+  return (
+    <div>
+      <form className={classes.root} autoComplete='off'>
+        <FormControl className={classes.formControl}>
+          {selectedTerm && (
+            <Select
+              value={selectedTerm.code}
+              onChange={handleChange}
+              autoWidth={true}
+              classes={{
+                select: classes.select,
+                icon: classes.selectIcon,
+                root: classes.input,
+              }}
+              input={
+                <Input
+                  id='terms-dropdown'
+                  name='terms'
+                  classes={{
+                    root: classes.inputRoot,
+                    underline: classes.underline,
+                  }}
+                />
+              }
+            >
+              {terms.map((term) => (
+                <MenuItem key={term.code} value={term.code}>
+                  {term.description}
+                </MenuItem>
+              ))}
+            </Select>
+          )}
+        </FormControl>
+      </form>
+    </div>
   )
-)
+}

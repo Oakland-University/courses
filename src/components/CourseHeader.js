@@ -1,172 +1,87 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { translate } from 'react-i18next'
 
+import amber from '@material-ui/core/colors/amber'
 import CardHeader from '@material-ui/core/CardHeader'
 import Typography from '@material-ui/core/Typography'
-import amber from '@material-ui/core/colors/amber'
-import { withStyles } from '@material-ui/core/styles'
 import { is_off_campus } from '../utils/offCampus'
+import { makeStyles } from '@material-ui/styles'
 
-const styles = theme => ({
+const useStyles = makeStyles((theme) => ({
   classHeader: {
     backgroundColor: theme.palette.primary.light,
-    textAlign: 'center'
+    textAlign: 'center',
   },
-
   classHeaderWaitList: {
     backgroundColor: amber[200],
-    textAlign: 'center'
+    textAlign: 'center',
   },
-
   classHeaderOffCampus: {
-    backgroundColor: "#D79873",
-    textAlign: 'center'
+    backgroundColor: '#D79873',
+    textAlign: 'center',
   },
-
   classHeaderSpanDiv: {
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
-
-  classHeaderSpanWaitList: {
-    fontWeight: 600,
-    color: 'rgba(0, 0, 0, 0.75)'
-  },
-
   subHeaderDiv: {
     display: 'flex',
     flexDirection: 'column-reverse',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
-
-  subHeaderDivMobile: {
-    display: 'flex',
-    flexDirection: 'column-reverse',
-    justifyContent: 'center'
-  },
-
   courseTitle: {
-    fontWeight: "bolder",
-    fontSize: "16px !important"
+    fontWeight: 'bolder',
   },
-
   courseInfo: {
     fontWeight: '500',
-    color: '#000'
-  }
-})
+    color: '#000',
+  },
+}))
 
-class CourseHeader extends React.Component {
+const determineColor = (course) => {
+  const textAlign = 'center'
+  let backgroundColor = '#B89F74' 
 
-  getHeader() {
-    const { classes, course, t } = this.props
-    if (!Object.is(course.waitList, '0')) {
-      return (
-        <CardHeader
-          className={classes.classHeaderWaitList}
-          title={
-            <Typography tabIndex="0" className={classes.courseTitle}>
-              {course.courseTitle}
-            </Typography>
-          }
-          key={course.crn + 0 + 3}
-          subheader={
-            <div className={classes.classHeaderSpanDiv}>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {course.subjectCode +
-                  '-' +
-                  course.subjectNumber +
-                  '-' +
-                  course.section +
-                  '-' +
-                  course.crn}
-              </span>
-              <div className={classes.subHeaderDiv}>
-                <span tabIndex="0" className={classes.courseInfo}>
-                  {t('credits', {}) + ': ' + course.credit}
-                </span>
-                <span tabIndex="0" className={classes.courseInfo}>
-                  {t('waitlist', {}) + ': ' + course.waitList}
-                </span>
-              </div>
-            </div>
-          }
-        />
-      )
-    } else if (course.meetings[0] && is_off_campus(course.meetings[0].campus)) {
-      return (
-        <CardHeader
-          className={classes.classHeaderOffCampus}
-          title={
-            <Typography
-              variant="subtitle1"
-              tabIndex="0"
-              className={classes.courseTitle}
-            >
-              {course.courseTitle}
-            </Typography>
-          }
-          subheader={
-            <div className={classes.classHeaderSpanDiv}>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {course.subjectCode +
-                  '-' +
-                  course.subjectNumber +
-                  '-' +
-                  course.section +
-                  '-' +
-                  course.crn}
-              </span>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {t('credits', {}) + ': ' + course.credit}
-              </span>
-            </div>
-          }
-        />
-      )
-    } else {
-      return (
-        <CardHeader
-          className={classes.classHeader}
-          title={
-            <Typography
-              variant="subtitle1"
-              tabIndex="0"
-              className={classes.courseTitle}
-            >
-              {course.courseTitle}
-            </Typography>
-          }
-          subheader={
-            <div className={classes.classHeaderSpanDiv}>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {course.subjectCode +
-                  '-' +
-                  course.subjectNumber +
-                  '-' +
-                  course.section +
-                  '-' +
-                  course.crn}
-              </span>
-              <span tabIndex="0" className={classes.courseInfo}>
-                {t('credits', {}) + ': ' + course.credit}
-              </span>
-            </div>
-          }
-        />
-      )
-    }
-  } 
-  render() {
-    return <div>{this.getHeader()}</div>
+  if (course.meetings.length !== 0 && is_off_campus(course.meetings[0].campus)) {
+    backgroundColor = '#D79873'
+    return { backgroundColor, textAlign }
+  } else if (course.waitlist !== "0") {
+    backgroundColor = amber[200]
+    return { backgroundColor, textAlign }
+  } else {
+    return { backgroundColor, textAlign }
   }
 }
 
-CourseHeader.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+export default function CourseHeader(props) {
+  const classes = useStyles()
+  const { course } = props
 
-export default withStyles(styles, { name: 'CourseHeader' })(
-  translate('view', { wait: true })(CourseHeader)
-)
+  return (
+    <CardHeader
+      style={determineColor(course)}
+      title={
+        <Typography tabIndex='0' className={classes.courseTitle}>
+          {course.courseTitle}
+        </Typography>
+      }
+      key={course.crn}
+      subheader={
+        <div className={classes.classHeaderSpanDiv}>
+          <span tabIndex='0' className={classes.courseInfo}>
+            {`${course.subjectCode}-${course.subjectNumber}-${course.section}-${course.crn}`}
+          </span>
+          <div className={classes.subHeaderDiv}>
+            {course.waitlist !== '0' && (
+              <span tabIndex='0' className={classes.courseInfo}>
+                Waitlist: {course.waitlist}
+              </span>
+            )}
+            <span tabIndex='0' className={classes.courseInfo}>
+              Credits: {course.credit}
+            </span>
+          </div>
+        </div>
+      }
+    />
+  )
+}

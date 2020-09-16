@@ -1,56 +1,40 @@
 import React from 'react'
 
-import PrintIcon from '@material-ui/icons/Print'
 import Button from '@material-ui/core/Button'
+import PrintIcon from '@material-ui/icons/Print'
+import { generate_pdf } from '../api/api'
+import { makeStyles } from '@material-ui/core/styles'
 
-/* global print_url */
+const useStyles = makeStyles(() => ({
+  icon: {
+    paddingLeft: 5,
+    marginTop: -6,
+  },
+  button: {
+    paddingTop: 10,
+    marginLeft: '1em',
+  },
+}))
 
-const mobileStyle = {
-  marginLeft: '1em'
-}
+export default function PrintCourses(props) {
+  const classes = useStyles()
+  const { selected_term } = props
 
-const style = {
-  marginLeft: '1em'
-}
+  const handleClick = () => {
+    generate_pdf(selected_term.code)
+  }
 
-export const getPrintButton = (term, mobile, rightIconStyle) => {
   return (
-    <div style={mobile ? mobileStyle : style}>
-      <Button
-        color="secondary"
-        title="Print Courses"
-        variant="raised"
-        tabIndex="0"
-        onClick={() => handlePrint(term)}
-      >
-        Print Courses
-        <PrintIcon className={rightIconStyle} />
-      </Button>
-      <form
-        name="PrintCoursesForm"
-        method="post"
-        target="_blank"
-        rel="noopener noreferrer"
-        action={print_url}
-        aria-describedby="download"
-        hidden
-      >
-        <input type="hidden" name="code" value={term.code}/>
-        <input type="hidden" name="current" value="random nonsense" />
-        <input type="hidden" name="description" value={term.description} />
-        <input type="hidden" name="start" value={term.start} />
-        <input type="hidden" name="end" value={term.end} />
-        <button
-          className="courses-portlet-print-form"
-          id="courses-portlet-print-form"
-          type="submit"
-        />
-      </form>
-    </div>
+    <Button
+      color='secondary'
+      title='Print Courses'
+      variant='contained'
+      tabIndex='0'
+      className={classes.button}
+      onClick={handleClick}
+    >
+      Print Courses
+      <PrintIcon className={classes.icon} />
+    </Button>
   )
 }
-
-const handlePrint = () => {
-  document.getElementById('courses-portlet-print-form').click()
-}
-

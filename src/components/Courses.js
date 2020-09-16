@@ -1,309 +1,125 @@
-// @flow weak
-
 import React from 'react'
-import CourseDetails from './CourseDetails'
-import CourseHeader from './CourseHeader'
-import ExpandableCourse from './ExpandableCourse'
-import Instructors from './Instructors'
-import Meetings from './Meetings'
-import PropTypes from 'prop-types'
-import WaitlistCourse from './WaitlistCourse'
-import { connect } from 'react-redux'
-import { fetch_courses } from './../actions/coursesActions'
-import { getBookButton } from './BuyBooks'
-import { getPrintButton } from './PrintCourses'
-import { translate } from 'react-i18next'
-
-import Info from '@material-ui/icons/Info'
 
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import CourseDetails from './CourseDetails'
+import CourseHeader from './CourseHeader'
+import ErrorMessages from './ErrorMessages'
+import Instructors from './Instructors'
+import Meetings from './Meetings'
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
-import { is_off_campus } from '../utils/offCampus'
+import { makeStyles } from '@material-ui/styles'
+import { useSelector } from 'react-redux'
 
-const styles = theme => ({
+const useStyles = makeStyles(() => ({
+  root: {
+    display: 'flex',
+    marginTop: 10,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
   courseContainer: {
     flex: '1 1 auto',
-    padding: '1em'
+    paddingLeft: '1em',
+    paddingRight: '1em',
   },
-
-  buttonsDiv: {
-    display: 'flex',
-    justifyContent: 'start',
-    alignItems: 'center'
-  },
-
-  button: {
-    margin: theme.spacing.unit
-  },
-
-  rightIcon: {
-    marginLeft: theme.spacing.unit
-  },
-
-  coursesDiv: {
-    display: 'flex',
-    flexFlow: 'wrap'
-  },
-
-  coursesDivMobile: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-
   card: {
-    backgroundColor: '#fafafa'
+    backgroundColor: '#fafafa',
+    minHeight: 336,
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    minWidth: 290,
   },
-
   content: {
     paddingTop: 0,
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
   },
-
   empty: {
-    textAlign: 'center'
+    textAlign: 'center',
   },
-
-  progress: {
-    margin: `0 ${theme.spacing.unit * 2}px`
+  loading: {
+    display: 'flex',
+    marginTop: 50,
+    justifyContent: 'center',
   },
-
-  infoCard: {
-    marginTop: 20,
-    borderLeft: '10px solid #31708F'
+  error: {
+    display: 'flex',
+    justifyContent: 'center',
   },
-
-  header: {
-    borderBottom: '1px solid #d3d3d3',
-    borderRadius: 0,
-    boxShadow: 'none',
-    padding: '10px',
+  container: {
+    marginTop: '2em',
   },
-
-  avatar: {
-    minWidth: 32
+  waitlistContainer: {
+    marginTop: '1em',
   },
-
-  icon: {
-    color: '#31708F',
-    fontSize: 32
+  actions: {
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    height: 45,
   },
+}))
 
-  headerContent: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "start",
-  },
-
-  sampleColor: {
-    height: "15px",
-    width: "15px",
-    backgroundColor: "#D79873",
-    alignSelf: "center",
-    borderRadius: "2px",
-    paddingLeft: "6px",
-    paddingRight: "6px",
-  },
-
-  notificationText: {
-    paddingLeft: 0,
-  }
-})
-
-class Courses extends React.Component {
-  componentDidMount() {
-    const { current_term } = this.props
-    this.props.fetch_courses(current_term)
-  }
-
-  getCourses = () => {
-    const { classes, courses, mobile } = this.props
-    let elements = []
-    for (let i = 0, total = courses.length; i < total; i++) {
-      if (courses[i].meetings.length > 1 || courses[i].instructors.length > 1) {
-        elements.push(
-          <ExpandableCourse
-            course={courses[i]}
-            key={'expandable' + Math.random()}
-            mobile={mobile}
-          />
-        )
-      } else if (!Object.is(courses[i].waitList, '0')) {
-        elements.push(
-          <WaitlistCourse
-            course={courses[i]}
-            key={'waitlist' + Math.random()}
-            mobile={mobile}
-          />
-        )
-      } else {
-        elements.push(
-          <div
-            className={classes.courseContainer}
-            key={courses[i].crn + i + Math.random()}
-          >
-            <div style={{ marginTop: '1em' }}>
-              <Card
-                className={classes.card}
-                key={courses[i].crn + i + Math.random()}
+const Course = ({ classes, courses }) => {
+  return courses.map((course) => {
+    return (
+      <div className={classes.courseContainer} key={course.crn}>
+        <div className={classes.container}>
+          <Card className={classes.card}>
+            <CourseHeader course={course} />
+            <CardContent className={classes.content}>
+              <div
+                className={course.waitlist === '0' ? classes.container : classes.waitlistContainer}
               >
-                <CourseHeader mobile={mobile} course={courses[i]} />
-                <CardContent
-                  className={classes.content}
-                  key={courses[i].crn + i + Math.random()}
-                >
-                  <div>
-                    <div
-                      style={{ marginTop: '1em' }}
-                      key={courses[i].crn + i + Math.random()}
-                    >
-                      <Meetings meetings={courses[i].meetings} />
-                    </div>
-                  </div>
-                </CardContent>
-                <CardActions
-                  key={courses[i].crn + i + Math.random()}
-                  style={{ justifyContent: 'center', flexWrap: 'wrap' }}
-                >
-                  <CourseDetails course={courses[i]} />
-                  <Instructors teachers={courses[i].instructors} />
-                </CardActions>
-              </Card>
-            </div>
-          </div>
-        )
-      }
-    }
-    return elements
-  }
-
-  hasOffCampusCourses = () => {
-    return this.props.courses.some(course => course.meetings.some(meeting => is_off_campus(meeting.campus)))
-  }
-
-  render() {
-    const {
-      books,
-      current_term,
-      classes,
-      courses_error,
-      courses_fetched,
-      courses_fetching,
-      mobile
-    } = this.props
-    if (courses_error) {
-      return (
-        <div>
-          <Typography variant="h3" className={classes.empty} tabIndex="0">
-            No Courses.
-          </Typography>
+                <Meetings meetings={course.meetings} />
+              </div>
+            </CardContent>
+            <CardActions className={classes.actions}>
+              <CourseDetails course={course} />
+              <Instructors instructors={course.instructors} />
+            </CardActions>
+          </Card>
         </div>
-      )
-    } else if (courses_fetching) {
-      return (
-        <div className={classes.loading}>
-          <CircularProgress
-            color="secondary"
-            className={classes.progress}
-            size={50}
-          />
-        </div>
-      )
-    } else if (courses_fetched) {
-      return (
-        <div ref={el => (this.componentRef = el)}>
-          <div className={classes.buttonsDiv}>
-            {getBookButton(
-              books,
-              current_term.description,
-              mobile,
-              classes.rightIcon
-            )}
-            {getPrintButton(
-              current_term,
-              mobile,
-              classes.rightIcon
-            )}
-          </div>
-          <Card className={classes.infoCard}>
-              <CardHeader
-              className = {classes.header}
-              classes={{
-                title: classes.headerContent
-              }}
-              avatar= {
-                <Info className={classes.icon} />
-              }
-              title={
-                <div className={classes.headerContent}>
-                  <Typography> <strong>Note: </strong>Your course may have multiple meeting times. Please click
-                  the down arrow listed next to the meeting time to view the full
-                  course schedule.</Typography>
-                </div>
-              }
-              >
-              </CardHeader>
-            </Card>
-          {this.hasOffCampusCourses()===true &&
-            (
-            <Card className={classes.infoCard}>
-              <CardHeader
-              className = {classes.header}
-              classes={{
-                title: classes.headerContent
-              }}
-              avatar= {
-                <Info className={classes.icon} />
-              }
-              title={
-                <div className={classes.headerContent}>
-                  <Typography>Courses not taken at the main campus will now appear as this color: &nbsp;<span className={classes.sampleColor}/></Typography>
-                  <Typography>The location of a course can be found in the first field under Class Information.</Typography>
-                </div>
-              }
-              >
-              </CardHeader>
-            </Card>
-            )}
-          <div
-            className={mobile ? classes.coursesDivMobile : classes.coursesDiv}
-          >
-            {this.getCourses()}
-          </div>
-        </div>
-      )
-    } else {
-      return <div />
-    }
-  }
+      </div>
+    )
+  })
 }
 
-Courses.propTypes = {
-  classes: PropTypes.object.isRequired
-}
+export default function Courses() {
+  const classes = useStyles()
+  const courses = useSelector((state) => state.courses)
+  const courses_fetching = useSelector((state) => state.fetching)
+  const courses_error = useSelector((state) => state.error)
+  const courses_fetched = useSelector((state) => state.fetched)
 
-const mapStateToProps = state => ({
-  books: state.courses.books,
-  courses: state.courses.courses,
-  courses_error: state.courses.error,
-  courses_fetched: state.courses.fetched,
-  courses_fetching: state.courses.fetching,
-  current_term: state.terms.current_term
-})
-
-const mapDispatchToProps = dispatch => {
-  return {
-    fetch_courses: current_term => dispatch(fetch_courses(current_term))
+  if (courses_fetched && !courses_error && courses.length !== 0) {
+    return (
+      <div className={classes.root}>
+        <Course courses={courses} classes={classes} />
+      </div>
+    )
+  } else if (courses_fetched && courses_error) {
+    return (
+      <div className={classes.error}>
+        <ErrorMessages />
+      </div>
+    )
+  } else if (courses_fetching) {
+    return (
+      <div className={classes.loading}>
+        <CircularProgress color='secondary' size={50} />
+      </div>
+    )
+  } else if (courses.length === 0) {
+    return (
+      <Typography className={classes.empty} tabIndex='0'>
+        You currently have no courses for this semester.
+      </Typography>
+    )
   }
 }
-
-export default withStyles(styles, { name: 'Courses' })(
-  translate('view', { wait: true })(
-    connect(mapStateToProps, mapDispatchToProps)(Courses)
-  )
-)
