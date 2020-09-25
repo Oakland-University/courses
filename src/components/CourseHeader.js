@@ -44,9 +44,6 @@ const determineColor = (course) => {
   if (course.meetings.length !== 0 && is_off_campus(course.meetings[0].campus)) {
     backgroundColor = '#D79873'
     return { backgroundColor, textAlign }
-  } else if (course.waitlist !== "0") {
-    backgroundColor = amber[200]
-    return { backgroundColor, textAlign }
   } else {
     return { backgroundColor, textAlign }
   }

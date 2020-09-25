@@ -1,21 +1,12 @@
 import React, { useState } from 'react'
 
 import AppBar from '@material-ui/core/AppBar'
-import Assignment from '@material-ui/icons/Assignment'
-import BuyBooks from './BuyBooks'
-import Calendar from './Calendar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import Courses from './Courses'
-import Event from '@material-ui/icons/Event'
-import Grades from './Grades'
 import Info from '@material-ui/icons/Info'
 import Paper from '@material-ui/core/Paper'
-import PrintCourses from './PrintCourses'
 import PropTypes from 'prop-types'
-import Spellcheck from '@material-ui/icons/Spellcheck'
-import Tab from '@material-ui/core/Tab'
-import Tabs from '@material-ui/core/Tabs'
 import TermSelect from './TermSelect'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
@@ -34,6 +25,8 @@ TabContainer.propTypes = {
 const useStyles = makeStyles(() => ({
   root: {
     minHeight: 0,
+    display: 'flex',
+    justifyContent: 'flex-end'
   },
   tab: {
     '@media (min-width: 1024px)': {
@@ -93,13 +86,13 @@ const OffCampus = ({ classes }) => {
         avatar={<Info className={classes.icon} />}
         title={
           <div className={classes.headerContent}>
-            <Typography>
-              Courses not taken at the main campus will now appear as this color: &nbsp;
-              <span className={classes.sampleColor} />
-            </Typography>
-            <Typography>
-              The location of a course can be found in the first field under Class Information.
-            </Typography>
+              <Typography>
+                Courses not taken at the main campus will now appear as this color: &nbsp;
+                <span className={classes.sampleColor} />
+              </Typography>
+              <Typography>
+                The location of a course can be found in the first field under Class Information.
+              </Typography>
           </div>
         }
       />
@@ -130,10 +123,31 @@ const MultipleMeetings = ({ classes }) => {
   )
 }
 
+const UpdateInfo = ({ classes }) => {
+  return (
+    <Card className={classes.infoCard}>
+      <CardHeader
+        className={classes.header}
+        classes={{
+          title: classes.headerContent,
+        }}
+        avatar={<Info className={classes.icon} />}
+        title={
+          <div className={classes.headerContent}>
+            <Typography>
+              {' '}
+              <strong>Note: </strong>If your course information is incorrect, please contact your department chair.
+            </Typography>
+          </div>
+        }
+      />
+    </Card>
+  )
+}
+
 export default function CoursesTabs() {
   const [value, setValue] = useState(0)
   const courses = useSelector((state) => state.courses)
-  const books = useSelector((state) => state.books)
   const selected_term = useSelector((state) => state.selected_term)
   const courses_fetched = useSelector((state) => state.fetched)
   const courses_error = useSelector((state) => state.error)
@@ -149,79 +163,19 @@ export default function CoursesTabs() {
     <Paper>
       <AppBar position='static'>
         <Toolbar disableGutters={true} className={mobile ? classes.bar : classes.root}>
-          {mobile && (
-            <Tabs
-              className={classes.flex}
-              value={value}
-              onChange={(_event, value) => setValue(value)}
-            >
-              <Tab
-                aria-label='courses'
-                title='Courses'
-                className={classes.tab}
-                icon={
-                  <Assignment
-                    className={classes.button}
-                    alt='View your courses for the selected term'
-                  />
-                }
-                tabIndex='0'
-              />
-              <Tab
-                aria-label='calendar'
-                title='Calendar'
-                className={classes.tab}
-                icon={<Event className={classes.button} alt='View your calendar events' />}
-                tabIndex='0'
-              />
-              <Tab
-                aria-label='grades'
-                title='Grades'
-                className={classes.tab}
-                icon={<Spellcheck className={classes.button} alt='View your grades' />}
-                tabIndex='0'
-              />
-            </Tabs>
-          )}
-          {!mobile && (
-            <Tabs
-              className={classes.flex}
-              value={value}
-              onChange={(event, value) => setValue(value)}
-            >
-              <Tab label='Courses' tabIndex='0' />
-              <Tab label='Calendar' tabIndex='0' />
-              <Tab label='Grades' tabIndex='0' />
-            </Tabs>
-          )}
           <TermSelect />
         </Toolbar>
       </AppBar>
-      {value === 0 && (
         <TabContainer>
           {courses_fetched && !courses_error && courses.length !== 0 && (
             <>
-              <div className={classes.btnContainer}>
-                <BuyBooks books={books} />
-                <PrintCourses courses={courses} selected_term={selected_term} />
-              </div>
               {off_campus && <OffCampus classes={classes} />}
               {multiple_meetings && <MultipleMeetings classes={classes} />}
+              {<UpdateInfo classes={classes}/>}
             </>
           )}
           <Courses tabIndex='0' mobile={mobile} />
         </TabContainer>
-      )}
-      {value === 1 && (
-        <TabContainer>
-          <Calendar mobile={mobile} />
-        </TabContainer>
-      )}
-      {value === 2 && (
-        <TabContainer>
-          <Grades tabIndex='0' mobile={mobile} />
-        </TabContainer>
-      )}
     </Paper>
   )
 }
