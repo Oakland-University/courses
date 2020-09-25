@@ -6,9 +6,11 @@ import BuyBooks from './BuyBooks'
 import Calendar from './Calendar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
+import CloseIcon from '@material-ui/icons/Close'
 import Courses from './Courses'
 import Event from '@material-ui/icons/Event'
 import Grades from './Grades'
+import IconButton from '@material-ui/core/IconButton'
 import Info from '@material-ui/icons/Info'
 import Paper from '@material-ui/core/Paper'
 import PrintCourses from './PrintCourses'
@@ -18,6 +20,7 @@ import Tab from '@material-ui/core/Tab'
 import Tabs from '@material-ui/core/Tabs'
 import TermSelect from './TermSelect'
 import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { is_off_campus } from '../utils/offCampus'
@@ -39,6 +42,7 @@ const useStyles = makeStyles(() => ({
     '@media (min-width: 1024px)': {
       minWidth: 72,
     },
+    minWidth: 125
   },
   flex: {
     flex: 1,
@@ -80,15 +84,24 @@ const useStyles = makeStyles(() => ({
     paddingLeft: '6px',
     paddingRight: '6px',
   },
+  tabRoot: {
+    minWidth: 125
+  },
+  action: {
+    alignSelf: 'center',
+    marginRight: -4,
+    marginTop: 0
+  }
 }))
 
-const OffCampus = ({ classes }) => {
+const OffCampus = ({ classes, set_campus_visible }) => {
   return (
     <Card className={classes.infoCard}>
       <CardHeader
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
@@ -102,18 +115,26 @@ const OffCampus = ({ classes }) => {
             </Typography>
           </div>
         }
+        action={
+          <Tooltip title='Hide' placement='bottom'>
+            <IconButton onClick={() => set_campus_visible(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
+        }
       />
     </Card>
   )
 }
 
-const MultipleMeetings = ({ classes }) => {
+const MultipleMeetings = ({ classes, set_meetings_visible }) => {
   return (
     <Card className={classes.infoCard}>
       <CardHeader
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
@@ -124,6 +145,13 @@ const MultipleMeetings = ({ classes }) => {
               down arrow listed next to the meeting time to view the full course schedule.
             </Typography>
           </div>
+        }
+        action={
+          <Tooltip title='Hide' placement='bottom'>
+            <IconButton onClick={() => set_meetings_visible(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
         }
       />
     </Card>
@@ -144,6 +172,8 @@ export default function CoursesTabs() {
     course.meetings.some((meeting) => is_off_campus(meeting.campus))
   )
   const multiple_meetings = courses.some((course) => course.meetings.length > 1)
+  const [campus_visible, set_campus_visible] = useState(true)
+  const [meetings_visible, set_meetings_visible] = useState(true)
 
   return (
     <Paper>
@@ -189,9 +219,27 @@ export default function CoursesTabs() {
               value={value}
               onChange={(event, value) => setValue(value)}
             >
-              <Tab label='Courses' tabIndex='0' />
-              <Tab label='Calendar' tabIndex='0' />
-              <Tab label='Grades' tabIndex='0' />
+              <Tab 
+                label='Courses' 
+                tabIndex='0' 
+                classes={{
+                  root: classes.tabRoot
+                }}
+              />
+              <Tab 
+                label='Calendar' 
+                classes={{
+                  root: classes.tabRoot
+                }}
+                tabIndex='0'
+              />
+              <Tab 
+                label='Grades' 
+                tabIndex='0' 
+                classes={{
+                 root: classes.tabRoot
+                }}
+              />
             </Tabs>
           )}
           <TermSelect />
@@ -205,8 +253,8 @@ export default function CoursesTabs() {
                 <BuyBooks books={books} />
                 <PrintCourses courses={courses} selected_term={selected_term} />
               </div>
-              {off_campus && <OffCampus classes={classes} />}
-              {multiple_meetings && <MultipleMeetings classes={classes} />}
+              {campus_visible && off_campus && <OffCampus classes={classes} set_campus_visible={set_campus_visible} />}
+              {meetings_visible && multiple_meetings && <MultipleMeetings classes={classes} set_meetings_visible={set_meetings_visible} />}
             </>
           )}
           <Courses tabIndex='0' mobile={mobile} />
