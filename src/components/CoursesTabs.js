@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import AppBar from '@material-ui/core/AppBar'
 import Card from '@material-ui/core/Card'
@@ -146,9 +146,7 @@ const UpdateInfo = ({ classes }) => {
 }
 
 export default function CoursesTabs() {
-  const [value, setValue] = useState(0)
   const courses = useSelector((state) => state.courses)
-  const selected_term = useSelector((state) => state.selected_term)
   const courses_fetched = useSelector((state) => state.fetched)
   const courses_error = useSelector((state) => state.error)
   const classes = useStyles()
