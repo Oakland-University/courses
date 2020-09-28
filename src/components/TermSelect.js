@@ -7,7 +7,6 @@ import Select from '@material-ui/core/Select'
 import { makeStyles } from '@material-ui/styles'
 import { update_term } from './../actions/termActions'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetch_events } from '../actions/eventsActions'
 import { fetch_selected_courses } from '../actions/termActions'
 
 const useStyles = makeStyles((theme) => ({
@@ -68,7 +67,6 @@ export default function TermSelect() {
         dispatch(update_term(term))
         setSelectedTerm(term)
         dispatch(fetch_selected_courses(term))
-        dispatch(fetch_events(term.code))
       }
     })
   }

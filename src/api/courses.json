@@ -13,11 +13,6 @@
             "subjectNumber": "2340",
             "section": "001",
             "credit": "2",
-            "grade": {
-                "credit": "2",
-                "grade": "N/A",
-                "crn": "43069"
-            },
             "meetings": [
                 {
                     "crn": "43069",
@@ -74,11 +69,11 @@
             ],
             "instructors": [
                 {
-                    "crn": "43069",
-                    "firstName": "Iraida",
-                    "lastName": "Lazareva",
-                    "office": "N/A",
-                    "email": "lazareva@email.test"
+                    "crn": "43064",
+                    "firstName": "Cheng",
+                    "lastName": "Wan",
+                    "office": "538 EC",
+                    "email": "wan@email.test"
                 }
             ]
         },
@@ -95,19 +90,14 @@
             "subjectNumber": "2060",
             "section": "3",
             "credit": "4",
-            "grade": {
-                "credit": "4",
-                "grade": "N/A",
-                "crn": "45049"
-            },
             "meetings": [],
             "instructors": [
                 {
-                    "crn": "45049",
-                    "firstName": "Billy",
-                    "lastName": "Swift",
-                    "office": "542 ODH",
-                    "email": "bswift@email.test"
+                    "crn": "43064",
+                    "firstName": "Cheng",
+                    "lastName": "Wan",
+                    "office": "538 EC",
+                    "email": "wan@email.test"
                 }
             ]
         },
@@ -124,11 +114,6 @@
             "subjectNumber": "4999",
             "section": "002",
             "credit": "4",
-            "grade": {
-                "credit": "4",
-                "grade": "N/A",
-                "crn": "44975"
-            },
             "meetings": [
                 {
                     "crn": "44975",
@@ -159,11 +144,11 @@
             ],
             "instructors": [
                 {
-                    "crn": "44975",
-                    "firstName": "Trofim",
-                    "lastName": "Muravyov",
-                    "office": "516 EC",
-                    "email": "muravyov@email.test"
+                    "crn": "43064",
+                    "firstName": "Cheng",
+                    "lastName": "Wan",
+                    "office": "538 EC",
+                    "email": "wan@email.test"
                 }
             ]
         },
@@ -180,11 +165,6 @@
             "subjectNumber": "5810",
             "section": "001",
             "credit": "4",
-            "grade": {
-                "credit": "4",
-                "grade": "N/A",
-                "crn": "42896"
-            },
             "meetings": [
                 {
                     "crn": "42896",
@@ -213,7 +193,15 @@
                     "endWeekOfMonth": 3
                 }
             ],
-            "instructors": []
+            "instructors": [
+                {
+                    "crn": "43064",
+                    "firstName": "Cheng",
+                    "lastName": "Wan",
+                    "office": "538 EC",
+                    "email": "wan@email.test"
+                }
+            ]
         },
         {
             "crn": "45367",
@@ -228,11 +216,6 @@
             "subjectNumber": "4004",
             "section": "0",
             "credit": "0",
-            "grade": {
-                "credit": "0",
-                "grade": "N/A",
-                "crn": "45367"
-            },
             "meetings": [
                 {
                     "crn": "45367",
@@ -263,11 +246,11 @@
             ],
             "instructors": [
                 {
-                    "crn": "45367",
-                    "firstName": "Elise",
-                    "lastName": "Carroll",
-                    "office": "Oak View Hall Rm 210",
-                    "email": "ecarroll@email.test"
+                    "crn": "43064",
+                    "firstName": "Cheng",
+                    "lastName": "Wan",
+                    "office": "538 EC",
+                    "email": "wan@email.test"
                 }
             ]
         },
@@ -284,11 +267,6 @@
             "subjectNumber": "4500",
             "section": "001",
             "credit": "4",
-            "grade": {
-                "credit": "4",
-                "grade": "N/A",
-                "crn": "43064"
-            },
             "meetings": [
                 {
                     "crn": "43064",
@@ -354,7 +332,6 @@
             ]
         }
     ],
-    "books": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><textbookorder><school id=\"244\"/><courses><course dept=\"CSI\" num=\"2340\" sect=\"43069\" term=\"F20\"/><course dept=\"CSI\" num=\"4500\" sect=\"43064\" term=\"F20\"/><course dept=\"CSI\" num=\"4999\" sect=\"44975\" term=\"F20\"/><course dept=\"CSI\" num=\"5810\" sect=\"42896\" term=\"F20\"/><course dept=\"HC\" num=\"2060\" sect=\"45049\" term=\"F20\"/><course dept=\"HC\" num=\"4004\" sect=\"45367\" term=\"F20\"/></courses></textbookorder>",
     "terms": [
         {
             "description": "Winter Semester 2021",
@@ -425,13 +402,6 @@
             "start": "2017-09-06T04:00:00.000+0000",
             "end": "2017-12-16T05:00:00.000+0000",
             "current": false
-        }
-    ],
-    "credit": [
-        {
-            "standing": "Undergraduate",
-            "gpa": "3.84",
-            "credits": "115"
         }
     ]
 }
