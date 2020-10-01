@@ -150,6 +150,7 @@ const UpdateInfo = ({  classes, set_update_info_visible }) => {
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
