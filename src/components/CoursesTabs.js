@@ -77,6 +77,11 @@ const useStyles = makeStyles(() => ({
     paddingLeft: '6px',
     paddingRight: '6px',
   },
+  action: {
+    alignSelf: 'center',
+    marginRight: -4,
+    marginTop: 0
+  }
 }))
 
 const OffCampus = ({ classes, set_campus_visible }) => {
