@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import AppBar from '@material-ui/core/AppBar'
 import Card from '@material-ui/core/Card'
 import CardHeader from '@material-ui/core/CardHeader'
 import Courses from './Courses'
 import Info from '@material-ui/icons/Info'
+import IconButton from '@material-ui/core/IconButton'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import CloseIcon from '@material-ui/icons/Close'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import TermSelect from './TermSelect'
 import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { is_off_campus } from '../utils/offCampus'
@@ -73,40 +77,54 @@ const useStyles = makeStyles(() => ({
     paddingLeft: '6px',
     paddingRight: '6px',
   },
+  action: {
+    alignSelf: 'center',
+    marginRight: -4,
+    marginTop: 0
+  }
 }))
 
-const OffCampus = ({ classes }) => {
+const OffCampus = ({ classes, set_campus_visible }) => {
   return (
     <Card className={classes.infoCard}>
       <CardHeader
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
           <div className={classes.headerContent}>
-              <Typography>
-                Courses not taken at the main campus will now appear as this color: &nbsp;
-                <span className={classes.sampleColor} />
-              </Typography>
-              <Typography>
-                The location of a course can be found in the first field under Class Information.
-              </Typography>
+            <Typography>
+              Courses not taken at the main campus will now appear as this color: &nbsp;
+              <span className={classes.sampleColor} />
+            </Typography>
+            <Typography>
+              The location of a course can be found in the first field under Class Information.
+            </Typography>
           </div>
+        }
+        action={
+          <Tooltip title='Hide' placement='bottom'>
+            <IconButton onClick={() => set_campus_visible(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
         }
       />
     </Card>
   )
 }
 
-const MultipleMeetings = ({ classes }) => {
+const MultipleMeetings = ({ classes, set_meetings_visible }) => {
   return (
     <Card className={classes.infoCard}>
       <CardHeader
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
@@ -118,26 +136,56 @@ const MultipleMeetings = ({ classes }) => {
             </Typography>
           </div>
         }
+        action={
+          <Tooltip title='Hide' placement='bottom'>
+            <IconButton onClick={() => set_meetings_visible(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Tooltip>
+        }
       />
     </Card>
   )
 }
 
-const UpdateInfo = ({ classes }) => {
+const UpdateInfo = ({  classes, set_update_info_visible }) => {
   return (
     <Card className={classes.infoCard}>
       <CardHeader
         className={classes.header}
         classes={{
           title: classes.headerContent,
+          action: classes.action
         }}
         avatar={<Info className={classes.icon} />}
         title={
           <div className={classes.headerContent}>
             <Typography>
               {' '}
-              <strong>Note: </strong>If your course information is incorrect, please contact your department chair.
+              <strong>Note: </strong>Your classes may meet in a variety of formats like hybrid, synchronous,
+asynchronous, or in person. 
             </Typography>
+            <Typography>
+            For more information on how to determine how your classes will meet, please review the information on the academic experience.
+            </Typography>
+          </div>
+        }action={
+          <div>
+            <Tooltip title='More Information' placement='bottom'>
+              <IconButton
+                href={'https://www.oakland.edu/return-to-campus/academic-experiences/'}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='Go to more information link (opens in new tab)'
+              >
+                <OpenInNewIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='Hide' placement='bottom'>
+              <IconButton onClick={() => set_update_info_visible(false)}>
+                <CloseIcon />
+              </IconButton>
+            </Tooltip>
           </div>
         }
       />
@@ -156,6 +204,9 @@ export default function CoursesTabs() {
     course.meetings.some((meeting) => is_off_campus(meeting.campus))
   )
   const multiple_meetings = courses.some((course) => course.meetings.length > 1)
+  const [campus_visible, set_campus_visible] = useState(true)
+  const [meetings_visible, set_meetings_visible] = useState(true)
+  const [update_info_visible, set_update_info_visible] = useState(true)
 
   return (
     <Paper>
@@ -167,9 +218,9 @@ export default function CoursesTabs() {
         <TabContainer>
           {courses_fetched && !courses_error && courses.length !== 0 && (
             <>
-              {off_campus && <OffCampus classes={classes} />}
-              {multiple_meetings && <MultipleMeetings classes={classes} />}
-              {<UpdateInfo classes={classes}/>}
+              {campus_visible && off_campus && <OffCampus classes={classes} set_campus_visible={set_campus_visible} />}
+              {meetings_visible && multiple_meetings && <MultipleMeetings classes={classes} set_meetings_visible={set_meetings_visible} />}
+              {update_info_visible && <UpdateInfo classes={classes} set_update_info_visible={set_update_info_visible}/>}
             </>
           )}
           <Courses tabIndex='0' mobile={mobile} />
