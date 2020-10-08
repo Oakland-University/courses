@@ -1,7 +1,4 @@
-import React from 'react'
-import { getMapUrl } from '../utils/mapLinks'
-import { translate } from 'react-i18next'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
@@ -17,191 +14,148 @@ import ListSubheader from '@material-ui/core/ListSubheader'
 import MailOutline from '@material-ui/icons/MailOutline'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
+import { getMapUrl } from '../utils/mapLinks'
+import { makeStyles } from '@material-ui/styles'
 
-const styles = theme => ({
-  button: {
-    fontWeight: 'bolder'
-  },
-
+const useStyles = makeStyles((theme) => ({
   instructor: {
     fontSize: 16,
     fontWeight: 'bolder',
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
   },
-
   dialogTitle: {
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
+    padding: 16,
   },
-
   title: {
-    fontWeight: 600
+    fontWeight: 600,
+    paddingTop: 3,
   },
+}))
 
-  close: {
-    fontWeight: 'bolder'
-  }
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />
 })
 
-function Transition(props) {
-  return <Slide direction="down" {...props} />
-}
-
-class Instructors extends React.Component {
-  state = {
-    open: false
-  }
-
-  handleRequestClose = () => {
-    this.setState({ open: false })
-  }
-
-  getInstructors() {
-    const { classes, t, teachers } = this.props
-    return (
-      <div>
-        <Button
-          onClick={() =>
-            this.setState({
-              open: true
-            })
-          }
-          color="secondary"
-          style={{ fontWeight: 'bolder' }}
-        >
-          {teachers.length >= 2 && 'Instructors'}
-          {teachers.length < 2 && 'Instructor'}
-        </Button>
-        <Dialog
-          open={this.state.open}
-          id="instructor-dialog"
-          tabIndex="0"
-          aria-label="instructor information"
-          onClose={this.handleRequestClose}
-          TransitionComponent={Transition}
-        >
-          <DialogTitle className={classes.dialogTitle} disableTypography={true}>
-            <Typography variant="h6" tabIndex="0" className={classes.title}>
-              {teachers.length >= 2 && 'Instructors Information'}
-              {teachers.length < 2 && 'Instructor Information'}
-            </Typography>
-          </DialogTitle>
-          <DialogContent>{this.getList()}</DialogContent>
-          <DialogActions>
-            <Button
-              onClick={this.handleRequestClose}
-              color="secondary"
-              className={classes.close}
-            >
-              {t('close', {})}
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
-    )
-  }
-
-  getList = () => {
-    const { classes, teachers } = this.props
-    let list = []
-    for (let i = 0, total = teachers.length; i < total; i++) {
-      if (Object.is(teachers, null) || Object.is(teachers[0], undefined)) {
-        return (
-          <List
-            subheader={
-              <ListSubheader
-                tabIndex="0"
-                classes={classes.instructor}
-                disableSticky={true}
-              >
-                "N/A"
-              </ListSubheader>
-            }
-          >
-            <ListItem>
-              <ListItemIcon>
-                <MailOutline />
-              </ListItemIcon>
-              <ListItemText secondary="N/A" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Domain />
-              </ListItemIcon>
-              <ListItemText secondary="N/A" />
-            </ListItem>
-          </List>
-        )
-      } else {
-        list.push(
-          <List
-            subheader={
-              <ListSubheader
-                tabIndex="0"
-                className={classes.instructor}
-                disableSticky={true}
-              >
-                {teachers[i].firstName + '  ' + teachers[i].lastName}
-              </ListSubheader>
-            }
-            key={teachers[i].email}
-          >
-            <ListItem>
-              <ListItemIcon>
-                <MailOutline />
-              </ListItemIcon>
-              <ListItemText
-                secondary={
-                  (!Object.is(teachers[i].email, 'N/A') && (
-                    <a
-                      href={'mailto:' + teachers[i].email}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      aria-describedby="email-application"
-                    >
-                      {teachers[i].email}
-                    </a>
-                  )) ||
-                  'N/A'
-                }
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Domain />
-              </ListItemIcon>
-              <ListItemText
-                secondary={
-                  (!Object.is(teachers.office, 'N/A') && (
-                    <a
-                      href={getMapUrl(teachers[i].office, true)}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      aria-describedby="new-window-2"
-                    >
-                      {teachers[i].office}
-                    </a>
-                  )) ||
-                  'N/A'
-                }
-              />
-            </ListItem>
-          </List>
-        )
+const NoInstructor = ({ classes }) => {
+  return (
+    <List
+      subheader={
+        <ListSubheader tabIndex='0' className={classes.instructor} disableSticky={true}>
+          N/A
+        </ListSubheader>
       }
-    }
-    return list
-  }
-
-  render() {
-    return <div>{this.getInstructors()}</div>
-  }
+    >
+      <ListItem>
+        <ListItemIcon>
+          <MailOutline />
+        </ListItemIcon>
+        <ListItemText secondary='N/A' />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon>
+          <Domain />
+        </ListItemIcon>
+        <ListItemText secondary='N/A' />
+      </ListItem>
+    </List>
+  )
 }
 
-Instructors.propTypes = {
-  classes: PropTypes.object.isRequired
+const Instructor = ({ classes, instructors }) => {
+  return instructors.map((instructor, i) => {
+    return (
+      <List
+        subheader={
+          <ListSubheader tabIndex='0' className={classes.instructor} disableSticky={true}>
+            {`${instructor.firstName} ${instructor.lastName}`}
+          </ListSubheader>
+        }
+        key={i}
+      >
+        <ListItem>
+          <ListItemIcon>
+            <MailOutline />
+          </ListItemIcon>
+          <ListItemText
+            secondary={
+              instructor.email !== 'N/A' ? (
+                <a
+                  href={'mailto:' + instructor.email}
+                  rel='noopener noreferrer'
+                  target='_blank'
+                  aria-describedby='email-application'
+                >
+                  {instructor.email}
+                </a>
+              ) : (
+                'N/A'
+              )
+            }
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <Domain />
+          </ListItemIcon>
+          <ListItemText
+            secondary={
+              instructor.office !== 'N/A' ? (
+                <a
+                  href={getMapUrl(instructor.office, true)}
+                  aria-describedby='new-window-2'
+                  rel='noopener noreferrer'
+                  target='_blank'
+                >
+                  {instructor.office}
+                </a>
+              ) : (
+                'N/A'
+              )
+            }
+          />
+        </ListItem>
+      </List>
+    )
+  })
 }
 
-export default withStyles(styles, { name: 'Instructors' })(
-  translate('view', { wait: true })(Instructors)
-)
+export default function Instructors(props) {
+  const { instructors } = props
+  const [open, setOpen] = useState(false)
+  const classes = useStyles()
+
+  return (
+    <div>
+      <Button onClick={() => setOpen(true)} color='secondary' className={classes.text}>
+        {instructors.length <= 1 ? 'Instructor' : 'Instructors'}
+      </Button>
+      <Dialog
+        open={open}
+        id='instructor-dialog'
+        tabIndex='0'
+        aria-label='instructor information'
+        onClose={() => setOpen(false)}
+        TransitionComponent={Transition}
+      >
+        <DialogTitle className={classes.dialogTitle} disableTypography={true}>
+          <Typography variant='h6' tabIndex='0' className={classes.title}>
+            {instructors.length <= 1 ? 'Instructor Information' : 'Instructors Information'}
+          </Typography>
+        </DialogTitle>
+        <DialogContent>
+          {instructors.length === 0 ? (
+            <NoInstructor classes={classes} />
+          ) : (
+            <Instructor instructors={instructors} classes={classes} />
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpen(false)} color='secondary'>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  )
+}

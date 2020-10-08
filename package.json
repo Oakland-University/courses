@@ -2,21 +2,20 @@
   "name": "courses",
   "version": "1.0.0",
   "private": true,
+  "proxy": "http://localhost:8090",
   "dependencies": {
-    "@material-ui/core": "~3.6.2",
-    "@material-ui/icons": "^3.0.2",
+    "@fullcalendar/daygrid": "^5.1.0",
+    "@fullcalendar/list": "^5.1.0",
+    "@fullcalendar/react": "^5.1.0",
+    "@fullcalendar/timegrid": "^5.1.0",
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
     "detect-browser": "^1.9.0",
-    "i18next": "^8.4.0",
-    "i18next-browser-languagedetector": "^1.0.1",
-    "i18next-fetch-backend": "^0.0.1",
-    "i18next-localstorage-cache": "^1.1.1",
-    "i18next-xhr-backend": "^1.4.1",
     "iterators-polyfill": "^1.0.2",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-i18next": "^4.1.0",
-    "react-jss": "^8.6.1",
-    "react-redux": "^5.0.7",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-i18next": "^10.12.5",
+    "react-redux": "^7.1.1",
     "reactjs-calendar": "^0.2.24",
     "redux": "^3.7.2",
     "redux-devtools": "^3.5.0",
@@ -26,14 +25,21 @@
     "typeface-arimo": "^0.0.22"
   },
   "devDependencies": {
-    "react-scripts": "^3.1.5"
+    "react-scripts": "^3.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "node scripts/build-non-split.js && npm run build:clean",
     "build:clean": "cd build/static/js/ && cp *.js ./main.js && cp *.map ./main.js.map && cp ../../service-worker.js .",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "npx prettier --write \"src/**/*.js\""
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": true,
+    "printWidth": 100
   },
   "browserslist": [
     ">0.2%",

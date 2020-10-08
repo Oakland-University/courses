@@ -1,59 +1,79 @@
-export const get_terms = async url => {
-  try {
-    const response = await fetch(url, { credentials: 'include' })
-    const terms = await response.json()
-    return terms
-  } catch (err) {
-    return err
-  }
-}
+/* global token */
+/* global is_demo */
+
+import courses from './courses.json'
+import events from './events.json'
 
 export const get_courses = async (term, url) => {
+  if (is_demo) {
+    return courses
+  }
+
   try {
-    let data = {
-      code: term.code,
-      description: term.description,
-      current: term.code,
-      end: term.end,
-      start: term.start
-    }
-
-    const formBody = Object.keys(data)
-      .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
-      .join('&')
-
-    const response = await fetch(url, {
-      body: formBody,
+    const response = await fetch(url + term, {
       credentials: 'include',
+      method: 'GET',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        Authorization: 'Bearer ' + token,
       },
-      method: 'POST'
     })
-    const courses = await response.json()
-    return courses
+
+    const data = await response.json()
+    return data
   } catch (err) {
     return err
   }
 }
 
-export const get_credits = async url => {
+export const get_events = async (term, url) => {
+  if (is_demo) {
+    return events
+  }
+
   try {
-    const response = await fetch(url, { credentials: 'include' })
-    const credits = await response.json()
-    return credits.gpa
+    const response = await fetch(url + term, {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+
+    const data = await response.json()
+    return data
   } catch (err) {
     return err
   }
 }
 
-export const get_advising = async url => {
+export const generate_pdf = async (term_code) => {
+  if (is_demo) {
+    return
+  }
+
   try {
-    const response = await fetch(url, { credentials: 'include' })
-    const advising = await response.json()
-    return advising.advising.status
+    const response = await fetch('/v1/courses/' + term_code + '/pdf', {
+      credentials: 'include',
+      method: 'GET',
+      headers: {
+        Accept: 'application/pdf',
+        Authorization: 'Bearer ' + token,
+      },
+    })
+
+    await response.body
+      .getReader()
+      .read()
+      .then((data) => {
+        const blob = new Blob([data.value], { type: 'application/pdf' })
+        const link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = 'course-list.pdf'
+        link.click()
+      })
   } catch (err) {
-    throw err
+    return err
   }
 }

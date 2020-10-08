@@ -1,7 +1,6 @@
-import React from 'react'
-import { translate } from 'react-i18next'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react'
 
+import amber from '@material-ui/core/colors/amber'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -12,125 +11,86 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Slide from '@material-ui/core/Slide'
 import Typography from '@material-ui/core/Typography'
-import amber from '@material-ui/core/colors/amber'
-import { withStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@material-ui/styles'
 
-const styles = theme => ({
-  button: {
-    fontWeight: 'bolder'
-  },
-
+const useStyles = makeStyles((theme) => ({
   dialogHeader: {
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
+    padding: 16,
   },
-
   dialogHeaderWaitList: {
-    backgroundColor: amber[200]
+    backgroundColor: amber[200],
+    padding: 16,
   },
-
-  list: {
-    color: 'rgba(0, 0, 0, 0.68)'
-  },
-
   dialogContent: {
     backgroundColor: '#fafafa',
-    background: '#E8EAEE'
+    background: '#E8EAEE',
+    padding: 5,
   },
-
   title: {
-    fontWeight: 600
-  }
+    fontWeight: 600,
+    paddingTop: 3,
+  },
+}))
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction='up' ref={ref} {...props} />
 })
 
-function Transition(props) {
-  return <Slide direction="down" {...props} />
-}
+export default function CourseDetails(props) {
+  const [open, setOpen] = useState(false)
+  const { course } = props
+  const classes = useStyles()
 
-class CourseDetails extends React.Component {
-  state = {
-    open: false
+  if (course === null) {
+    return <div />
   }
 
-  handleOpen = () => {
-    this.setState({ open: true })
-  }
-
-  handleClose = () => {
-    this.setState({ open: false })
-  }
-
-  render() {
-    const { classes, course, courses, t } = this.props
-    const { open } = this.state
-    if (Object.is(courses, null)) {
-      return <div />
-    } else {
-      return (
-        <div aria-labelledby={'openbutton' + course.crn}>
-          <Button
-            className={classes.button}
-            color="secondary"
-            onClick={this.handleOpen}
-            id={'openbutton' + course.crn}
-            aria-label="course description"
-          >
-            {t('description', {})}
-          </Button>
-
-          <Dialog
-            role="dialog"
-            id="dialogbox"
-            aria-label="course description"
-            tabIndex="0"
-            open={open}
-            onClose={this.handleClose}
-            TransitionComponent={Transition}
-          >
-            <DialogTitle
-              className={
-                Object.is(course.waitList, '0')
-                  ? classes.dialogHeader
-                  : classes.dialogHeaderWaitList
-              }
-              disableTypography={true}
+  return (
+    <div aria-labelledby={'openbutton' + course.crn}>
+      <Button
+        color='secondary'
+        onClick={() => setOpen(true)}
+        id={'openbutton' + course.crn}
+        aria-label='course description'
+      >
+        Description
+      </Button>
+      <Dialog
+        role='dialog'
+        id='dialogbox'
+        aria-label='course description'
+        tabIndex='0'
+        open={open}
+        onClose={() => setOpen(false)}
+        TransitionComponent={Transition}
+      >
+        <DialogTitle
+          className={course.waitlist === '0' ? classes.dialogHeader : classes.dialogHeaderWaitList}
+          disableTypography={true}
+        >
+          <Typography variant='h6' tabIndex='0' className={classes.title}>
+            {course.courseTitle}
+          </Typography>
+        </DialogTitle>
+        <DialogContent className={classes.dialogContent} aria-labelledby='dialogbox'>
+          <List>
+            <ListItem tabIndex='0'>
+              <ListItemText primary={course.courseDescription} />
+            </ListItem>
+          </List>
+          <DialogActions>
+            <Button
+              onClick={() => setOpen(false)}
+              aria-label='close course information'
+              tabIndex='0'
+              color='secondary'
             >
-              <Typography variant="h6" tabIndex="0" className={classes.title}>
-                {course.courseTitle}
-              </Typography>
-            </DialogTitle>
-            <DialogContent
-              className={classes.dialogContent}
-              aria-labelledby="dialogbox"
-            >
-              <List>
-                <ListItem tabIndex="0">
-                  <ListItemText primary={course.courseDescription} />
-                </ListItem>
-              </List>
-
-              <DialogActions>
-                <Button
-                  className={classes.button}
-                  onClick={this.handleClose}
-                  aria-label="close course information"
-                  tabIndex="0"
-                  color="secondary"
-                >
-                  {t('close', {})}
-                </Button>
-              </DialogActions>
-            </DialogContent>
-          </Dialog>
-        </div>
-      )
-    }
-  }
+              Close
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+    </div>
+  )
 }
-
-CourseDetails.propTypes = {
-  classes: PropTypes.object.isRequired
-}
-
-export default withStyles(styles, { name: 'CourseDetails' })(
-  translate('view', { wait: true })(CourseDetails)
-)
