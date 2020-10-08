@@ -7,7 +7,7 @@ import { StylesProvider, createGenerateClassName } from '@material-ui/styles'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 import { Provider } from 'react-redux'
 
-const project_name = 'courses-soffit'
+const project_name = 'faculty-courses'
 
 const theme = createMuiTheme({
   typography: {

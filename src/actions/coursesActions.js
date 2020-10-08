@@ -1,6 +1,6 @@
 import { get_courses } from '../api/api'
 
-const courses_url = '/v1/courses/'
+const courses_url = '/faculty-courses/v1/courses/'
 
 export function fetch_courses(term) {
   return function (dispatch) {
