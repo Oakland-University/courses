@@ -1,6 +1,6 @@
 import { get_events } from '../api/api'
 
-const events_url = '/v1/events/'
+const events_url = '/courses-soffit/v1/events/'
 
 export function fetch_events(term) {
   return function (dispatch) {
