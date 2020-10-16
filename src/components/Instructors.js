@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     paddingTop: 3,
   },
+  btn: {
+    marginBottom: 10
+  }
 }))
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -127,7 +130,7 @@ export default function Instructors(props) {
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)} color='secondary' className={classes.text}>
+      <Button onClick={() => setOpen(true)} color='secondary' className={classes.btn}>
         {instructors.length <= 1 ? 'Instructor' : 'Instructors'}
       </Button>
       <Dialog

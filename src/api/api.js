@@ -54,7 +54,7 @@ export const generate_pdf = async (term_code) => {
   }
 
   try {
-    const response = await fetch('/v1/courses/' + term_code + '/pdf', {
+    const response = await fetch('/courses-soffit/v1/courses/' + term_code + '/pdf', {
       credentials: 'include',
       method: 'GET',
       headers: {
