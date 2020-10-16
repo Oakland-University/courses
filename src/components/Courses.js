@@ -62,6 +62,7 @@ const useStyles = makeStyles(() => ({
     flexWrap: 'wrap',
     justifyContent: 'center',
     height: 45,
+    alignContent: 'center'
   },
 }))
 
