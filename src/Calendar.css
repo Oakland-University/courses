@@ -53,3 +53,7 @@
 .fc-list-event {
   cursor: pointer;
 }
+
+.fc .fc-view-harness {
+  max-height: 745px;
+}
