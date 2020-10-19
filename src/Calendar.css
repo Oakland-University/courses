@@ -37,6 +37,10 @@
   border: 1px solid #e0e0e0;
 }
 
+.fc .fc-view-harness {
+  max-height: 740px;
+}
+
 .fc-media-screen .fc-timegrid-event-harness {
   cursor: pointer
 }
@@ -52,8 +56,4 @@
 
 .fc-list-event {
   cursor: pointer;
-}
-
-.fc .fc-view-harness {
-  max-height: 745px;
 }
