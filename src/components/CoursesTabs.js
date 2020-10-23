@@ -90,8 +90,7 @@ const useStyles = makeStyles(() => ({
   },
   action: {
     alignSelf: 'center',
-    marginRight: -4,
-    marginTop: 0
+    margin: '0px -4px 0px 5px'
   }
 }))
 
@@ -174,10 +173,7 @@ const UpdateInfo = ({  classes, set_update_info_visible }) => {
             <Typography>
               {' '}
               <strong>Note: </strong>Your classes may meet in a variety of formats like hybrid, synchronous,
-asynchronous, or in person. 
-            </Typography>
-            <Typography>
-            For more information on how to determine how your classes will meet, please review the information on the academic experience.
+asynchronous, or in person. For more information on how to determine how your classes will meet, please review the information on the academic experience.
             </Typography>
           </div>
         }action={
