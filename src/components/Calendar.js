@@ -89,12 +89,14 @@ export default function Calendar(props) {
                 month: 'short',
                 day: 'numeric',
               },
+              slotMinTime: "07:00:00"
             },
             timeGridDay: {
               titleFormat: {
                 month: 'long',
                 day: 'numeric',
               },
+              slotMinTime: "07:00:00"
             },
             listWeek: {
               titleFormat: {

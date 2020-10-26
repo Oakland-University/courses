@@ -12,6 +12,7 @@ import Event from '@material-ui/icons/Event'
 import Grades from './Grades'
 import IconButton from '@material-ui/core/IconButton'
 import Info from '@material-ui/icons/Info'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import Paper from '@material-ui/core/Paper'
 import PrintCourses from './PrintCourses'
 import PropTypes from 'prop-types'
@@ -89,8 +90,7 @@ const useStyles = makeStyles(() => ({
   },
   action: {
     alignSelf: 'center',
-    marginRight: -4,
-    marginTop: 0
+    margin: '0px -4px 0px 5px'
   }
 }))
 
@@ -158,6 +158,48 @@ const MultipleMeetings = ({ classes, set_meetings_visible }) => {
   )
 }
 
+const UpdateInfo = ({  classes, set_update_info_visible }) => {
+  return (
+    <Card className={classes.infoCard}>
+      <CardHeader
+        className={classes.header}
+        classes={{
+          title: classes.headerContent,
+          action: classes.action
+        }}
+        avatar={<Info className={classes.icon} />}
+        title={
+          <div className={classes.headerContent}>
+            <Typography>
+              {' '}
+              <strong>Note: </strong>Your classes may meet in a variety of formats like hybrid, synchronous,
+asynchronous, or in person. For more information on how to determine how your classes will meet, please review the information on the academic experience.
+            </Typography>
+          </div>
+        }action={
+          <div>
+            <Tooltip title='More Information' placement='bottom'>
+              <IconButton
+                href={'https://www.oakland.edu/return-to-campus/academic-experiences/'}
+                target='_blank'
+                rel='noopener noreferrer'
+                aria-label='Go to more information link (opens in new tab)'
+              >
+                <OpenInNewIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title='Hide' placement='bottom'>
+              <IconButton onClick={() => set_update_info_visible(false)}>
+                <CloseIcon />
+              </IconButton>
+            </Tooltip>
+          </div>
+        }
+      />
+    </Card>
+  )
+}
+
 export default function CoursesTabs() {
   const [value, setValue] = useState(0)
   const courses = useSelector((state) => state.courses)
@@ -174,6 +216,7 @@ export default function CoursesTabs() {
   const multiple_meetings = courses.some((course) => course.meetings.length > 1)
   const [campus_visible, set_campus_visible] = useState(true)
   const [meetings_visible, set_meetings_visible] = useState(true)
+  const [update_info_visible, set_update_info_visible] = useState(true)
 
   return (
     <Paper>
@@ -255,6 +298,7 @@ export default function CoursesTabs() {
               </div>
               {campus_visible && off_campus && <OffCampus classes={classes} set_campus_visible={set_campus_visible} />}
               {meetings_visible && multiple_meetings && <MultipleMeetings classes={classes} set_meetings_visible={set_meetings_visible} />}
+              {update_info_visible && <UpdateInfo classes={classes} set_update_info_visible={set_update_info_visible}/>}
             </>
           )}
           <Courses tabIndex='0' mobile={mobile} />

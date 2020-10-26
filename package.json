@@ -30,7 +30,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "node scripts/build-non-split.js && npm run build:clean",
-    "build:clean": "cd build/static/js/ && cp *.js ./main.js && cp *.map ./main.js.map && cp ../../service-worker.js .",
+    "build:clean": "cd build/static/js/ && cp *.js ./main.js && cp *.map ./main.js.map && cd ../css/ && cp *.css ./main.css && cp *.map ./main.css.map && cp ../../service-worker.js .",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "format": "npx prettier --write \"src/**/*.js\""

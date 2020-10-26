@@ -1,6 +1,6 @@
 import { get_courses } from '../api/api'
 
-const courses_url = '/v1/courses/'
+const courses_url = '/courses-soffit/v1/courses/'
 
 export function fetch_selected_courses(selected_term) {
   return function (dispatch) {

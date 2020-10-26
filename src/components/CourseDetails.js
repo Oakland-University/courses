@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     paddingTop: 3,
   },
+  btn: {
+    marginBottom: 10
+  }
 }))
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -53,6 +56,7 @@ export default function CourseDetails(props) {
         onClick={() => setOpen(true)}
         id={'openbutton' + course.crn}
         aria-label='course description'
+        className={classes.btn}
       >
         Description
       </Button>
