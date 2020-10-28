@@ -83,6 +83,8 @@ export default function Calendar(props) {
                 year: 'numeric',
                 month: 'long',
               },
+              fixedWeekCount: false,
+              weekNumbers: false
             },
             timeGridWeek: {
               titleFormat: {
